@@ -111,6 +111,8 @@ def build_and_execute_notebook(output_path: str = "notebooks/Fraud_Detection_Ana
     add_md("## 5. Data Loading\nLoading the official raw dataset into Pandas.")
     add_code(
         "import os\n"
+        "import sys\n"
+        "import json\n"
         "import pandas as pd\n"
         "import numpy as np\n\n"
         "data_path = 'data/raw/Fraud_Analysis_Dataset.csv' if os.path.exists('data/raw/Fraud_Analysis_Dataset.csv') else 'Fraud_Analysis_Dataset.csv'\n"
@@ -226,6 +228,8 @@ def build_and_execute_notebook(output_path: str = "notebooks/Fraud_Detection_Ana
     # 13. Hyperparameter Tuning
     add_md("## 13. Hyperparameter Tuning\nHyperparameter tuning results prioritizing PR-AUC and F1-score.")
     add_code(
+        "import json\n"
+        "import os\n\n"
         "if os.path.exists('models/model_metadata.json'):\n"
         "    with open('models/model_metadata.json') as f:\n"
         "        meta = json.load(f)\n"
@@ -240,6 +244,8 @@ def build_and_execute_notebook(output_path: str = "notebooks/Fraud_Detection_Ana
     # 14. Model Comparison
     add_md("## 14. Model Comparison\nBenchmarking all architectures on the untouched test partition.")
     add_code(
+        "import os\n"
+        "import pandas as pd\n\n"
         "if os.path.exists('reports/model_comparison.csv'):\n"
         "    df_comp = pd.read_csv('reports/model_comparison.csv')\n"
         "    print(df_comp.to_string(index=False))\n"
@@ -262,6 +268,8 @@ def build_and_execute_notebook(output_path: str = "notebooks/Fraud_Detection_Ana
     # 16. Threshold Optimization
     add_md("## 16. Threshold Optimization\nEvaluating decision threshold tradeoff curves.")
     add_code(
+        "import json\n"
+        "import os\n\n"
         "if os.path.exists('reports/evaluation_report.json'):\n"
         "    with open('reports/evaluation_report.json') as f:\n"
         "        ev = json.load(f)\n"
@@ -286,6 +294,8 @@ def build_and_execute_notebook(output_path: str = "notebooks/Fraud_Detection_Ana
     # 18. Financial Impact Analysis
     add_md("## 18. Financial Impact Analysis\nQuantifying prevented fraud losses vs operational review costs.")
     add_code(
+        "import json\n"
+        "import os\n\n"
         "if os.path.exists('reports/financial_impact_analysis.json'):\n"
         "    with open('reports/financial_impact_analysis.json') as f:\n"
         "        fin = json.load(f)\n"

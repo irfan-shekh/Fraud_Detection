@@ -4,6 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-FF4B4B.svg)](https://streamlit.io/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4%2B-F7931E.svg)](https://scikit-learn.org/)
+[![Pytest Passed](https://img.shields.io/badge/pytest-12%20passed-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An end-to-end Machine Learning intelligence platform developed for the **Boston Institute of Analytics (BIA)** Data Science Capstone. The system detects fraudulent financial transactions, evaluates enterprise monetary exposure, provides model explainability through SHAP, and delivers an interactive analytics dashboard via Streamlit.
@@ -15,12 +16,13 @@ An end-to-end Machine Learning intelligence platform developed for the **Boston 
 | Metric | Result | Context / Business Impact |
 |---|---|---|
 | **Champion Model** | **Random Forest Classifier** | Hyperparameter-tuned ensemble of 100 decision trees |
+| **Optimal Threshold** | **0.21** | Calibrated via 5-fold cross-validation on training data |
 | **Test Accuracy** | **99.96%** | Untouched test partition (2,229 transactions) |
 | **Test Precision** | **100.00%** | **0 False Positives** (Zero false alarms on test set) |
 | **Test Recall** | **99.56%** | **227 out of 228** fraudulent transactions detected |
 | **Test F1-Score** | **0.9978** | Harmonic mean of Precision and Recall |
 | **ROC-AUC** | **0.99999** | Near-perfect class separability |
-| **PR-AUC** | **0.99994** | Benchmark metric for imbalanced fraud distributions |
+| **PR-AUC** | **0.99994** | Gold standard evaluation metric for imbalanced fraud data |
 | **Total Test Fraud Value** | **$235,846,526.37** | Total monetary fraud volume in test partition |
 | **Detected Fraud Value** | **$235,430,525.04** | **99.82%** of all fraudulent dollars intercepted |
 | **Missed Fraud Exposure** | **$416,001.33** | Single missed fraud instance |
@@ -73,7 +75,7 @@ To provide deep discriminative signals to tree models, 12 domain features were c
 11. `error_orig_zero = (abs(balance_error_orig) < 0.01)`
 12. `error_dest_zero = (abs(balance_error_dest) < 0.01)`
 
-**Impact:** Incorporating engineered features improved Random Forest test recall from **96.49% to 99.56%**.
+**Impact:** Incorporating engineered features improved Random Forest test recall from **96.49% to 99.56%** with zero precision penalty.
 
 ---
 
@@ -124,7 +126,7 @@ The production dashboard contains 6 interactive modules:
 
 ## 📁 Repository Structure
 
-```
+```text
 Fraud_Detection/
 ├── data/
 │   ├── raw/
@@ -138,7 +140,7 @@ Fraud_Detection/
 │   ├── __init__.py
 │   ├── data_loader.py                      # Data ingestion utilities
 │   ├── data_validation.py                  # Quality audit & JSON report
-│   ├── eda.py                              # Generates 15 EDA figures
+│   ├── eda.py                              # Generates 15+ EDA figures
 │   ├── feature_engineering.py              # Domain ledger feature engineering
 │   ├── preprocessing.py                    # Leak-free ColumnTransformer pipeline
 │   ├── train.py                            # Model training & hyperparameter search
@@ -148,7 +150,7 @@ Fraud_Detection/
 ├── models/
 │   ├── best_model.joblib                   # Serialized Random Forest champion
 │   ├── preprocessing_pipeline.joblib       # Fitted preprocessor ColumnTransformer
-│   └── model_metadata.json                 # Model hyperparameters & threshold
+│   └── model_metadata.json                 # Model hyperparameters & threshold (0.21)
 ├── reports/
 │   ├── figures/                            # 27 high-resolution diagnostic charts
 │   ├── model_comparison.csv                # Benchmark evaluation metrics
@@ -157,8 +159,11 @@ Fraud_Detection/
 │   ├── evaluation_report.json              # Full evaluation JSON
 │   ├── data_quality_report.json            # Quality audit JSON
 │   ├── financial_impact_analysis.json      # Financial ROI report JSON
-│   ├── Fraud_Detection_Final_Report.docx   # 20-section formal Word report
-│   └── Fraud_Detection_Presentation.pptx   # 15-slide widescreen presentation
+│   ├── FINAL_INDEPENDENT_AUDIT.md          # Independent audit verification report
+│   ├── BIA_CAPSTONE_VIVA_PREPARATION.md    # Top 15 Viva Voce defense Q&A
+│   ├── BI_DASHBOARD_GUIDE.md               # Power BI & Tableau DAX schema guide
+│   ├── EXECUTIVE_PITCH_SHEET.md            # 1-page executive board brief
+│   └── fraud_detection_bi_dataset.csv      # Enriched BI export dataset
 ├── dashboard/
 │   ├── app.py                              # Main Streamlit application
 │   ├── components.py                       # Reusable Plotly & CSS components
@@ -167,13 +172,22 @@ Fraud_Detection/
 │   ├── test_preprocessing.py               # Unit tests for data & preprocessing
 │   ├── test_model.py                       # Unit tests for model inference
 │   └── test_dashboard.py                   # Unit tests for batch & sample CSVs
+├── launch_dashboard.bat                    # 1-Click Streamlit batch launcher (Windows)
 ├── requirements.txt                        # Pinned dependencies
 ├── README.md                               # Project documentation
 ├── .gitignore                              # Git exclusion rules
-├── run_project.py                          # Master end-to-end execution script
-├── build_notebook.py                       # Notebook builder
-└── Fraud_Detection_BIA_Final_Submission.zip# Final BIA Capstone archive
+├── run_project.py                          # Master end-to-end execution pipeline
+└── Fraud_Analysis_Dataset.csv              # Working copy of BIA dataset
 ```
+
+### 🎓 Submission Deliverables Location
+All finalized academic submission deliverables are archived in [`C:\Projects\BIA_Capstone\`](file:///C:/Projects/BIA_Capstone):
+- `Fraud_Detection_Final_Report.docx` (Formal 20-section report, 662 KB)
+- `Fraud_Detection_Presentation.pptx` (15-slide presentation, 876 KB)
+- `Fraud_Detection_BIA_Final_Submission.zip` (Full submission archive, 6.08 MB)
+- `FINAL_INDEPENDENT_AUDIT.md` (Audit verification report)
+- `BIA_CAPSTONE_VIVA_PREPARATION.md` (Viva defense guide)
+- `EXECUTIVE_PITCH_SHEET.md` (Executive brief)
 
 ---
 
@@ -182,9 +196,6 @@ Fraud_Detection/
 ### 1. Prerequisites & Environment Setup
 Clone the repository and install required dependencies:
 ```bash
-git clone https://github.com/your-username/fraud-detection-capstone.git
-cd fraud-detection-capstone
-
 # Create and activate virtual environment
 python -m venv venv
 # On Windows:
@@ -196,11 +207,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Run the Complete End-to-End Pipeline
-Executes data quality audit, EDA, feature engineering, pipeline fitting, model training, tuning, SHAP explainability, and financial impact analysis:
+### 2. Launch the Streamlit Web Application
+**On Windows:** Simply double-click [`launch_dashboard.bat`](file:///c:/Projects/Fraud_Detection/launch_dashboard.bat).
+
+**Or via terminal:**
 ```bash
-python run_project.py
+streamlit run dashboard/app.py
 ```
+Open your browser at `http://localhost:8501`.
 
 ### 3. Run the Unit Test Suite
 Verify that all 12 unit tests pass:
@@ -208,18 +222,11 @@ Verify that all 12 unit tests pass:
 python -m pytest -v
 ```
 
-### 4. Launch the Streamlit Web Application
-Launch the interactive fraud risk dashboard locally:
+### 4. Run the Complete End-to-End Pipeline
+Executes data quality audit, EDA, feature engineering, pipeline fitting, model training, tuning, SHAP explainability, and financial impact analysis:
 ```bash
-streamlit run dashboard/app.py
+python run_project.py
 ```
-Open your browser at `http://localhost:8501`.
-
-### 5. Streamlit Community Cloud Deployment
-1. Push this repository to GitHub.
-2. Sign in to [Streamlit Community Cloud](https://share.streamlit.io/).
-3. Select your repository, set branch to `main`, and specify `dashboard/app.py` as the entry point.
-4. Deploy with one click. The dashboard reads pre-saved model artifacts without retraining.
 
 ---
 
@@ -242,4 +249,3 @@ Open your browser at `http://localhost:8501`.
 This capstone project is submitted in partial fulfillment of the requirements for the Post Graduate Diploma in Data Science & Artificial Intelligence at **Boston Institute of Analytics (BIA)**.
 
 All metrics, visualizations, and financial figures reflect genuine model evaluations on the provided BIA dataset without fabrication or synthetic manipulation.
-
