@@ -1,0 +1,55 @@
+{
+    "model_name": "Random Forest",
+    "optimal_threshold": 0.21,
+    "feature_names": [
+        "step",
+        "amount",
+        "oldbalanceOrg",
+        "newbalanceOrig",
+        "oldbalanceDest",
+        "newbalanceDest",
+        "origin_balance_difference",
+        "destination_balance_difference",
+        "balance_error_orig",
+        "balance_error_dest",
+        "transaction_hour",
+        "transaction_day",
+        "transaction_amount_log",
+        "origin_balance_zero",
+        "destination_balance_zero",
+        "merchant_destination",
+        "empty_account_flag",
+        "amount_to_oldbalance_orig_ratio",
+        "error_orig_zero",
+        "error_dest_zero",
+        "type_CASH_OUT",
+        "type_DEBIT",
+        "type_PAYMENT",
+        "type_TRANSFER"
+    ],
+    "evaluation_summary": {
+        "threshold": 0.21,
+        "accuracy": 0.9995513683266039,
+        "precision": 1.0,
+        "recall": 0.9956140350877193,
+        "f1_score": 0.9978021978021978,
+        "roc_auc": 0.9999934243404613,
+        "pr_auc": 0.9999430394167237,
+        "true_positives": 227,
+        "false_positives": 0,
+        "true_negatives": 2001,
+        "false_negatives": 1,
+        "confusion_matrix": [
+            [
+                2001,
+                0
+            ],
+            [
+                1,
+                227
+            ]
+        ]
+    },
+    "input_features_count": 24,
+    "description": "BIA Fraud Detection Capstone Champion Model"
+}

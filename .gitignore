@@ -1,0 +1,28 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Pytest & Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary / OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Matplotlib cache
+matplotlib_cache/
+

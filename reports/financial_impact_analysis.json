@@ -1,0 +1,124 @@
+{
+    "base_case": {
+        "measured_metrics": {
+            "total_fraud_transactions": 228,
+            "total_legit_transactions": 2001,
+            "detected_fraud_count": 227,
+            "missed_fraud_count": 1,
+            "false_positive_count": 0,
+            "true_negative_count": 2001,
+            "total_fraud_amount": 235846526.37,
+            "total_legit_amount": 205491066.96,
+            "detected_fraud_amount": 235430525.04,
+            "missed_fraud_amount": 416001.33,
+            "flagged_legit_amount": 0.0,
+            "transaction_detection_rate_pct": 99.56,
+            "dollar_detection_rate_pct": 99.82
+        },
+        "business_assumptions": {
+            "investigation_cost_per_flag_usd": 30.0,
+            "fraud_recovery_rate": 0.8,
+            "fp_friction_rate": 0.015
+        },
+        "estimated_business_impact": {
+            "gross_loss_prevented_usd": 188344420.03,
+            "loss_incurred_missed_fraud_usd": 416001.33,
+            "total_investigation_cost_usd": 6810.0,
+            "fp_friction_cost_usd": 0.0,
+            "total_operational_cost_usd": 6810.0,
+            "net_financial_benefit_usd": 188337610.03
+        }
+    },
+    "scenarios": {
+        "Low Cost / High Efficiency": {
+            "measured_metrics": {
+                "total_fraud_transactions": 228,
+                "total_legit_transactions": 2001,
+                "detected_fraud_count": 227,
+                "missed_fraud_count": 1,
+                "false_positive_count": 0,
+                "true_negative_count": 2001,
+                "total_fraud_amount": 235846526.37,
+                "total_legit_amount": 205491066.96,
+                "detected_fraud_amount": 235430525.04,
+                "missed_fraud_amount": 416001.33,
+                "flagged_legit_amount": 0.0,
+                "transaction_detection_rate_pct": 99.56,
+                "dollar_detection_rate_pct": 99.82
+            },
+            "business_assumptions": {
+                "investigation_cost_per_flag_usd": 15.0,
+                "fraud_recovery_rate": 0.9,
+                "fp_friction_rate": 0.005
+            },
+            "estimated_business_impact": {
+                "gross_loss_prevented_usd": 211887472.54,
+                "loss_incurred_missed_fraud_usd": 416001.33,
+                "total_investigation_cost_usd": 3405.0,
+                "fp_friction_cost_usd": 0.0,
+                "total_operational_cost_usd": 3405.0,
+                "net_financial_benefit_usd": 211884067.54
+            }
+        },
+        "Medium (Base Case)": {
+            "measured_metrics": {
+                "total_fraud_transactions": 228,
+                "total_legit_transactions": 2001,
+                "detected_fraud_count": 227,
+                "missed_fraud_count": 1,
+                "false_positive_count": 0,
+                "true_negative_count": 2001,
+                "total_fraud_amount": 235846526.37,
+                "total_legit_amount": 205491066.96,
+                "detected_fraud_amount": 235430525.04,
+                "missed_fraud_amount": 416001.33,
+                "flagged_legit_amount": 0.0,
+                "transaction_detection_rate_pct": 99.56,
+                "dollar_detection_rate_pct": 99.82
+            },
+            "business_assumptions": {
+                "investigation_cost_per_flag_usd": 30.0,
+                "fraud_recovery_rate": 0.8,
+                "fp_friction_rate": 0.015
+            },
+            "estimated_business_impact": {
+                "gross_loss_prevented_usd": 188344420.03,
+                "loss_incurred_missed_fraud_usd": 416001.33,
+                "total_investigation_cost_usd": 6810.0,
+                "fp_friction_cost_usd": 0.0,
+                "total_operational_cost_usd": 6810.0,
+                "net_financial_benefit_usd": 188337610.03
+            }
+        },
+        "High Cost / Conservative": {
+            "measured_metrics": {
+                "total_fraud_transactions": 228,
+                "total_legit_transactions": 2001,
+                "detected_fraud_count": 227,
+                "missed_fraud_count": 1,
+                "false_positive_count": 0,
+                "true_negative_count": 2001,
+                "total_fraud_amount": 235846526.37,
+                "total_legit_amount": 205491066.96,
+                "detected_fraud_amount": 235430525.04,
+                "missed_fraud_amount": 416001.33,
+                "flagged_legit_amount": 0.0,
+                "transaction_detection_rate_pct": 99.56,
+                "dollar_detection_rate_pct": 99.82
+            },
+            "business_assumptions": {
+                "investigation_cost_per_flag_usd": 60.0,
+                "fraud_recovery_rate": 0.7,
+                "fp_friction_rate": 0.03
+            },
+            "estimated_business_impact": {
+                "gross_loss_prevented_usd": 164801367.53,
+                "loss_incurred_missed_fraud_usd": 416001.33,
+                "total_investigation_cost_usd": 13620.0,
+                "fp_friction_cost_usd": 0.0,
+                "total_operational_cost_usd": 13620.0,
+                "net_financial_benefit_usd": 164787747.53
+            }
+        }
+    }
+}

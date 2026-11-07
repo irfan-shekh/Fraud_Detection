@@ -1,0 +1,178 @@
+{
+    "dimensions": {
+        "num_rows": 11142,
+        "num_columns": 10,
+        "column_names": [
+            "step",
+            "type",
+            "amount",
+            "nameOrig",
+            "oldbalanceOrg",
+            "newbalanceOrig",
+            "nameDest",
+            "oldbalanceDest",
+            "newbalanceDest",
+            "isFraud"
+        ]
+    },
+    "dtypes": {
+        "step": "int64",
+        "type": "object",
+        "amount": "float64",
+        "nameOrig": "object",
+        "oldbalanceOrg": "float64",
+        "newbalanceOrig": "float64",
+        "nameDest": "object",
+        "oldbalanceDest": "float64",
+        "newbalanceDest": "float64",
+        "isFraud": "int64"
+    },
+    "missing_values": {
+        "step": 0,
+        "type": 0,
+        "amount": 0,
+        "nameOrig": 0,
+        "oldbalanceOrg": 0,
+        "newbalanceOrig": 0,
+        "nameDest": 0,
+        "oldbalanceDest": 0,
+        "newbalanceDest": 0,
+        "isFraud": 0
+    },
+    "total_missing": 0,
+    "duplicate_records": 0,
+    "amount_integrity": {
+        "non_positive_count": 0,
+        "min": 2.39,
+        "max": 10000000.0,
+        "mean": 213191.4850843655,
+        "median": 16761.260000000002,
+        "std": 760065.007672924
+    },
+    "balance_integrity": {
+        "oldbalanceOrg": {
+            "negative_count": 0,
+            "zero_count": 2456,
+            "zero_percentage": 22.04,
+            "min": 0.0,
+            "max": 19900000.0
+        },
+        "newbalanceOrig": {
+            "negative_count": 0,
+            "zero_count": 5161,
+            "zero_percentage": 46.32,
+            "min": 0.0,
+            "max": 13000000.0
+        },
+        "oldbalanceDest": {
+            "negative_count": 0,
+            "zero_count": 6405,
+            "zero_percentage": 57.49,
+            "min": 0.0,
+            "max": 33000000.0
+        },
+        "newbalanceDest": {
+            "negative_count": 0,
+            "zero_count": 6393,
+            "zero_percentage": 57.38,
+            "min": 0.0,
+            "max": 34600000.0
+        }
+    },
+    "account_integrity": {
+        "unique_senders": 11142,
+        "unique_destinations": 7508,
+        "merchant_destinations": 5510,
+        "customer_destinations": 5632
+    },
+    "target_distribution": {
+        "legitimate_count": 10000,
+        "fraud_count": 1142,
+        "fraud_percentage": 10.25,
+        "imbalance_ratio": "1:8.76"
+    },
+    "transaction_types": {
+        "PAYMENT": 5510,
+        "CASH_IN": 1951,
+        "CASH_OUT": 1871,
+        "TRANSFER": 1464,
+        "DEBIT": 346
+    },
+    "type_fraud_distribution": {
+        "0": {
+            "CASH_IN": 1951,
+            "CASH_OUT": 1293,
+            "DEBIT": 346,
+            "PAYMENT": 5510,
+            "TRANSFER": 900
+        },
+        "1": {
+            "CASH_IN": 0,
+            "CASH_OUT": 578,
+            "DEBIT": 0,
+            "PAYMENT": 0,
+            "TRANSFER": 564
+        }
+    },
+    "outliers_iqr": {
+        "amount": {
+            "q1": 4946.6175,
+            "q3": 154336.575,
+            "iqr": 149389.95750000002,
+            "lower_bound": -219138.31875000003,
+            "upper_bound": 378421.51125000004,
+            "outlier_count": 1172,
+            "outlier_percentage": 10.52
+        },
+        "oldbalanceOrg": {
+            "q1": 427.0,
+            "q3": 304085.48,
+            "iqr": 303658.48,
+            "lower_bound": -455060.72,
+            "upper_bound": 759573.2,
+            "outlier_count": 2195,
+            "outlier_percentage": 19.7
+        },
+        "newbalanceOrig": {
+            "q1": 0.0,
+            "q3": 111412.63500000001,
+            "iqr": 111412.63500000001,
+            "lower_bound": -167118.9525,
+            "upper_bound": 278531.5875,
+            "outlier_count": 2245,
+            "outlier_percentage": 20.15
+        },
+        "oldbalanceDest": {
+            "q1": 0.0,
+            "q3": 271155.4725,
+            "iqr": 271155.4725,
+            "lower_bound": -406733.20875,
+            "upper_bound": 677888.6812499999,
+            "outlier_count": 1921,
+            "outlier_percentage": 17.24
+        },
+        "newbalanceDest": {
+            "q1": 0.0,
+            "q3": 318637.36,
+            "iqr": 318637.36,
+            "lower_bound": -477956.04,
+            "upper_bound": 796593.3999999999,
+            "outlier_count": 2214,
+            "outlier_percentage": 19.87
+        }
+    },
+    "audit_summary": {
+        "status": "PASSED",
+        "has_missing_values": false,
+        "has_duplicates": false,
+        "has_negative_amounts": false,
+        "critical_observations": [
+            "No missing values or duplicate rows exist in the raw dataset.",
+            "All transaction amounts and account balances are non-negative.",
+            "Fraud occurs exclusively in TRANSFER and CASH_OUT transaction types.",
+            "Destination merchant accounts (starting with M) belong exclusively to PAYMENT transactions and record 0.0 for destination balances.",
+            "Over 99% of fraudulent transactions result in complete sender balance depletion (newbalanceOrig = 0).",
+            "Target class imbalance is significant: 1,142 fraud (10.25%) vs 10,000 legitimate (89.75%)."
+        ]
+    }
+}
