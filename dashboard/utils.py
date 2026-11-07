@@ -30,6 +30,28 @@ FIN_PATH = os.path.join(PROJECT_ROOT, "reports", "financial_impact_analysis.json
 DATA_REPORT_PATH = os.path.join(PROJECT_ROOT, "reports", "data_quality_report.json")
 
 
+def _patch_preprocessor_compatibility(preprocessor: Any) -> Any:
+    """Defensively patch scikit-learn cross-version unpickling compatibility (e.g. SimpleImputer._fill_dtype)."""
+    if preprocessor is None:
+        return preprocessor
+    try:
+        transformers = getattr(preprocessor, "transformers_", [])
+        for name, trans, cols in transformers:
+            if hasattr(trans, "named_steps"):
+                for step_name, step in trans.named_steps.items():
+                    if "Imputer" in step.__class__.__name__:
+                        if not hasattr(step, "_fill_dtype"):
+                            stats = getattr(step, "statistics_", None)
+                            step._fill_dtype = stats.dtype if stats is not None and hasattr(stats, "dtype") else np.float64
+            elif "Imputer" in trans.__class__.__name__:
+                if not hasattr(trans, "_fill_dtype"):
+                    stats = getattr(trans, "statistics_", None)
+                    trans._fill_dtype = stats.dtype if stats is not None and hasattr(stats, "dtype") else np.float64
+    except Exception:
+        pass
+    return preprocessor
+
+
 def load_model_artifacts() -> Dict[str, Any]:
     """Load serialized model, preprocessor, and metadata with fallback error handling."""
     if not os.path.exists(MODEL_PATH) or not os.path.exists(PIPELINE_PATH):
@@ -38,7 +60,7 @@ def load_model_artifacts() -> Dict[str, Any]:
         )
 
     model = joblib.load(MODEL_PATH)
-    preprocessor = joblib.load(PIPELINE_PATH)
+    preprocessor = _patch_preprocessor_compatibility(joblib.load(PIPELINE_PATH))
 
     metadata = {}
     if os.path.exists(METADATA_PATH):
@@ -114,6 +136,7 @@ def predict_single_transaction(
     fe_df = engineer_features(input_data, drop_identifiers=True)
 
     # Preprocess
+    _patch_preprocessor_compatibility(preprocessor)
     X_trans = preprocessor.transform(fe_df)
 
     # Inference
@@ -208,6 +231,7 @@ def predict_batch_transactions(
         df_to_pred = df_clean
 
     fe_df = engineer_features(df_to_pred, drop_identifiers=True)
+    _patch_preprocessor_compatibility(preprocessor)
     X_trans = preprocessor.transform(fe_df)
 
     probs = model.predict_proba(X_trans)[:, 1]
