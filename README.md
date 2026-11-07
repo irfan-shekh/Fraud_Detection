@@ -160,7 +160,6 @@ Fraud_Detection/
 │   ├── data_quality_report.json            # Quality audit JSON
 │   ├── financial_impact_analysis.json      # Financial ROI report JSON
 │   ├── FINAL_INDEPENDENT_AUDIT.md          # Independent audit verification report
-│   ├── BIA_CAPSTONE_VIVA_PREPARATION.md    # Top 15 Viva Voce defense Q&A
 │   ├── BI_DASHBOARD_GUIDE.md               # Power BI & Tableau DAX schema guide
 │   ├── EXECUTIVE_PITCH_SHEET.md            # 1-page executive board brief
 │   └── fraud_detection_bi_dataset.csv      # Enriched BI export dataset
@@ -172,7 +171,6 @@ Fraud_Detection/
 │   ├── test_preprocessing.py               # Unit tests for data & preprocessing
 │   ├── test_model.py                       # Unit tests for model inference
 │   └── test_dashboard.py                   # Unit tests for batch & sample CSVs
-├── launch_dashboard.bat                    # 1-Click Streamlit batch launcher (Windows)
 ├── requirements.txt                        # Pinned dependencies
 ├── README.md                               # Project documentation
 ├── .gitignore                              # Git exclusion rules
@@ -186,7 +184,6 @@ All finalized academic submission deliverables are archived in [`C:\Projects\BIA
 - `Fraud_Detection_Presentation.pptx` (15-slide presentation, 876 KB)
 - `Fraud_Detection_BIA_Final_Submission.zip` (Full submission archive, 6.08 MB)
 - `FINAL_INDEPENDENT_AUDIT.md` (Audit verification report)
-- `BIA_CAPSTONE_VIVA_PREPARATION.md` (Viva defense guide)
 - `EXECUTIVE_PITCH_SHEET.md` (Executive brief)
 
 ---
@@ -208,9 +205,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. Launch the Streamlit Web Application
-**On Windows:** Simply double-click [`launch_dashboard.bat`](file:///c:/Projects/Fraud_Detection/launch_dashboard.bat).
-
-**Or via terminal:**
+Run via terminal:
 ```bash
 streamlit run dashboard/app.py
 ```
