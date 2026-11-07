@@ -3,31 +3,57 @@ FRAUDGUARD AI — Intelligent Financial Fraud Detection System
 Streamlit Capstone Dashboard for Boston Institute of Analytics (BIA).
 """
 
+import os
+import sys
+
+# Ensure repository root is in sys.path
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import os
 import json
 
-from dashboard.components import (
-    apply_custom_styles,
-    render_metric_card,
-    create_fraud_distribution_pie,
-    create_type_fraud_bar,
-    create_hourly_trend_line,
-    create_risk_gauge,
-)
-from dashboard.utils import (
-    load_model_artifacts,
-    load_dataset,
-    load_evaluation_metrics,
-    load_financial_metrics,
-    predict_single_transaction,
-    predict_batch_transactions,
-    generate_sample_csv,
-)
+try:
+    from dashboard.components import (
+        apply_custom_styles,
+        render_metric_card,
+        create_fraud_distribution_pie,
+        create_type_fraud_bar,
+        create_hourly_trend_line,
+        create_risk_gauge,
+    )
+    from dashboard.utils import (
+        load_model_artifacts,
+        load_dataset,
+        load_evaluation_metrics,
+        load_financial_metrics,
+        predict_single_transaction,
+        predict_batch_transactions,
+        generate_sample_csv,
+    )
+except ImportError:
+    from components import (
+        apply_custom_styles,
+        render_metric_card,
+        create_fraud_distribution_pie,
+        create_type_fraud_bar,
+        create_hourly_trend_line,
+        create_risk_gauge,
+    )
+    from utils import (
+        load_model_artifacts,
+        load_dataset,
+        load_evaluation_metrics,
+        load_financial_metrics,
+        predict_single_transaction,
+        predict_batch_transactions,
+        generate_sample_csv,
+    )
 
 # Page configuration
 st.set_page_config(

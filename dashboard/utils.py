@@ -5,6 +5,7 @@ batch prediction pipelines, and sample test data generators.
 """
 
 import os
+import sys
 import io
 import json
 import joblib
@@ -12,16 +13,21 @@ import numpy as np
 import pandas as pd
 from typing import Tuple, Dict, Any, Optional
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from src.feature_engineering import FinancialFeatureEngineer, engineer_features
 
 
-MODEL_PATH = "models/best_model.joblib"
-PIPELINE_PATH = "models/preprocessing_pipeline.joblib"
-METADATA_PATH = "models/model_metadata.json"
-DATA_PATH = "data/raw/Fraud_Analysis_Dataset.csv"
-EVAL_PATH = "reports/evaluation_report.json"
-FIN_PATH = "reports/financial_impact_analysis.json"
-DATA_REPORT_PATH = "reports/data_quality_report.json"
+MODEL_PATH = os.path.join(PROJECT_ROOT, "models", "best_model.joblib")
+PIPELINE_PATH = os.path.join(PROJECT_ROOT, "models", "preprocessing_pipeline.joblib")
+METADATA_PATH = os.path.join(PROJECT_ROOT, "models", "model_metadata.json")
+DATA_PATH = os.path.join(PROJECT_ROOT, "data", "raw", "Fraud_Analysis_Dataset.csv")
+DATA_PATH_FALLBACK = os.path.join(PROJECT_ROOT, "Fraud_Analysis_Dataset.csv")
+EVAL_PATH = os.path.join(PROJECT_ROOT, "reports", "evaluation_report.json")
+FIN_PATH = os.path.join(PROJECT_ROOT, "reports", "financial_impact_analysis.json")
+DATA_REPORT_PATH = os.path.join(PROJECT_ROOT, "reports", "data_quality_report.json")
 
 
 def load_model_artifacts() -> Dict[str, Any]:
@@ -51,6 +57,8 @@ def load_dataset() -> pd.DataFrame:
     """Load raw dataset for overview dashboard metrics."""
     if os.path.exists(DATA_PATH):
         return pd.read_csv(DATA_PATH)
+    elif os.path.exists(DATA_PATH_FALLBACK):
+        return pd.read_csv(DATA_PATH_FALLBACK)
     elif os.path.exists("Fraud_Analysis_Dataset.csv"):
         return pd.read_csv("Fraud_Analysis_Dataset.csv")
     else:
