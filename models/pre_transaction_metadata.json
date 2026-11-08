@@ -1,0 +1,75 @@
+{
+    "system_mode": "pre_transaction",
+    "description": "Pre-Transaction Fraud Screening Model (Authorization Switch)",
+    "model_name": "Random Forest",
+    "optimal_threshold": 0.20999999999999996,
+    "input_features_count": 16,
+    "feature_names": [
+        "step",
+        "amount",
+        "oldbalanceOrg",
+        "oldbalanceDest",
+        "transaction_hour",
+        "transaction_day",
+        "transaction_amount_log",
+        "merchant_destination",
+        "amount_to_oldbalance_orig_ratio",
+        "orig_has_zero_balance",
+        "dest_has_zero_balance",
+        "empty_account_flag",
+        "type_CASH_OUT",
+        "type_DEBIT",
+        "type_PAYMENT",
+        "type_TRANSFER"
+    ],
+    "evaluation_summary": {
+        "threshold": 0.20999999999999996,
+        "accuracy": 0.9995513683266039,
+        "precision": 1.0,
+        "recall": 0.9956140350877193,
+        "f1_score": 0.9978021978021978,
+        "roc_auc": 0.9999649298157939,
+        "pr_auc": 0.9996140350877193,
+        "true_positives": 227,
+        "false_positives": 0,
+        "true_negatives": 2001,
+        "false_negatives": 1,
+        "training_time_seconds": 0.0,
+        "inference_time_seconds": 0.0,
+        "confusion_matrix": [
+            [
+                2001,
+                0
+            ],
+            [
+                1,
+                227
+            ]
+        ]
+    },
+    "default_evaluation": {
+        "threshold": 0.5,
+        "accuracy": 0.9995513683266039,
+        "precision": 1.0,
+        "recall": 0.9956140350877193,
+        "f1_score": 0.9978021978021978,
+        "roc_auc": 0.9999649298157939,
+        "pr_auc": 0.9996140350877193,
+        "true_positives": 227,
+        "false_positives": 0,
+        "true_negatives": 2001,
+        "false_negatives": 1,
+        "training_time_seconds": 0.0,
+        "inference_time_seconds": 0.0,
+        "confusion_matrix": [
+            [
+                2001,
+                0
+            ],
+            [
+                1,
+                227
+            ]
+        ]
+    }
+}

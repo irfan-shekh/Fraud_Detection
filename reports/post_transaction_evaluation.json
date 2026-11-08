@@ -1,0 +1,108 @@
+{
+    "mode": "post_transaction",
+    "champion_model": "XGBoost",
+    "optimal_threshold": {
+        "threshold": 0.07,
+        "accuracy": 0.9991027366532077,
+        "precision": 0.9956140350877193,
+        "recall": 0.9956140350877193,
+        "f1_score": 0.9956140350877193,
+        "roc_auc": 0.9989950200338427,
+        "pr_auc": 0.9969990766389658,
+        "true_positives": 227,
+        "false_positives": 1,
+        "true_negatives": 2000,
+        "false_negatives": 1,
+        "training_time_seconds": 0.0,
+        "inference_time_seconds": 0.0,
+        "confusion_matrix": [
+            [
+                2000,
+                1
+            ],
+            [
+                1,
+                227
+            ]
+        ]
+    },
+    "default_threshold_0_50": {
+        "threshold": 0.5,
+        "accuracy": 0.9995513683266039,
+        "precision": 1.0,
+        "recall": 0.9956140350877193,
+        "f1_score": 0.9978021978021978,
+        "roc_auc": 0.9989950200338427,
+        "pr_auc": 0.9969990766389658,
+        "true_positives": 227,
+        "false_positives": 0,
+        "true_negatives": 2001,
+        "false_negatives": 1,
+        "training_time_seconds": 0.0,
+        "inference_time_seconds": 0.0,
+        "confusion_matrix": [
+            [
+                2001,
+                0
+            ],
+            [
+                1,
+                227
+            ]
+        ]
+    },
+    "all_models_summary": [
+        {
+            "Model": "XGBoost",
+            "Accuracy": 0.9995513683266039,
+            "Precision": 1.0,
+            "Recall": 0.9956140350877193,
+            "F1-Score": 0.9978021978021978,
+            "ROC-AUC": 0.9989950200338427,
+            "PR-AUC": 0.9969990766389658,
+            "False_Positives": 0,
+            "False_Negatives": 1,
+            "Train_Time_s": 0.8608,
+            "Infer_Time_s": 0.02
+        },
+        {
+            "Model": "Logistic Regression",
+            "Accuracy": 0.9991027366532077,
+            "Precision": 0.9956140350877193,
+            "Recall": 0.9956140350877193,
+            "F1-Score": 0.9956140350877193,
+            "ROC-AUC": 0.9962387227438912,
+            "PR-AUC": 0.9960904100268783,
+            "False_Positives": 1,
+            "False_Negatives": 1,
+            "Train_Time_s": 1.4696,
+            "Infer_Time_s": 0.0114
+        },
+        {
+            "Model": "Decision Tree",
+            "Accuracy": 0.9995513683266039,
+            "Precision": 1.0,
+            "Recall": 0.9956140350877193,
+            "F1-Score": 0.9978021978021978,
+            "ROC-AUC": 0.9978070175438596,
+            "PR-AUC": 0.9960626667611154,
+            "False_Positives": 0,
+            "False_Negatives": 1,
+            "Train_Time_s": 0.1886,
+            "Infer_Time_s": 0.0164
+        },
+        {
+            "Model": "Random Forest",
+            "Accuracy": 0.9995513683266039,
+            "Precision": 1.0,
+            "Recall": 0.9956140350877193,
+            "F1-Score": 0.9978021978021978,
+            "ROC-AUC": 0.997760987927089,
+            "PR-AUC": 0.9960626667611154,
+            "False_Positives": 0,
+            "False_Negatives": 1,
+            "Train_Time_s": 1.3302,
+            "Infer_Time_s": 0.0262
+        }
+    ]
+}
