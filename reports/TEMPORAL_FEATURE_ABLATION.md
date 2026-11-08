@@ -98,3 +98,4 @@ In Experiment C, `amount_to_oldbalance_orig_ratio` was ablated in addition to te
 
 ### Architectural Conclusion:
 For real-world electronic payment switches, **Experiment B represents the gold-standard design**. By decoupling fraud risk scoring from the wall-clock time and chronological transaction sequence, the financial institution gains a policy engine whose decision boundaries remain stable regardless of daylight savings shifts, seasonal retail volume spikes, or multi-year operational horizons.
+
