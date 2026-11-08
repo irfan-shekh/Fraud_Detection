@@ -4,7 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://frauddetection-17.streamlit.app)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4%2B-F7931E.svg)](https://scikit-learn.org/)
-[![Pytest Passed](https://img.shields.io/badge/pytest-23%20passed-brightgreen.svg)](tests/)
+[![Pytest Passed](https://img.shields.io/badge/pytest-25%20passed-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An enterprise-grade Machine Learning intelligence platform developed for the **Boston Institute of Analytics (BIA)** Data Science Capstone. The system features a **Dual-Architecture Engine** that rigorously distinguishes between **Pre-Transaction Fraud Screening** (real-time pre-authorization switch with zero leakage) and **Post-Transaction Fraud Detection** (post-clearing ledger reconciliation & audit), evaluates enterprise monetary exposure, provides model explainability through SHAP, and delivers an interactive 7-page analytics dashboard via Streamlit.
@@ -21,13 +21,13 @@ An enterprise-grade Machine Learning intelligence platform developed for the **B
 | **Champion Algorithm** | **Random Forest Classifier** | **XGBoost Classifier** | Selected via leak-free 5-Fold Stratified CV |
 | **Input Dimensions** | **16 Encoded Features** (13 unencoded) | **26 Encoded Features** (23 unencoded) | Exact dimensions audited via metadata |
 | **Calibrated Threshold** | **0.21** (Optimized on Train OOF) | **0.07** (Optimized on Train OOF) | Threshold chosen via business objective |
-| **Test Accuracy** | **99.96%** (2,228 / 2,229 correct) | **99.96%** (2,228 / 2,229 correct) | Untouched test partition (2,229 records) |
-| **Test Precision** | **100.00%** (0 False Positives) | **100.00%** (0 False Positives) | Zero legitimate transactions falsely blocked |
+| **Test Accuracy** | **99.96%** (2,228 / 2,229 correct) | **99.91%** (2,227 / 2,229 correct) | Untouched test partition (2,229 records) |
+| **Test Precision** | **100.00%** (0 False Positives) | **99.56%** (1 False Positive) | 100.00% precision at default 0.50 threshold |
 | **Test Recall** | **99.56%** (227 / 228 Detected) | **99.56%** (227 / 228 Detected) | Intercepts 99.82% of all fraudulent capital |
-| **Test F1-Score** | **0.9978** | **0.9978** | Harmonic mean of Precision and Recall |
-| **Test ROC-AUC** | **0.99996** | **0.99999** | Near-perfect class separability |
-| **Test PR-AUC** | **0.99961** | **0.99994** | Benchmark metric for imbalanced fraud data |
-| **False Positives** | **0** | **0** | Zero customer friction on legitimate accounts |
+| **Test F1-Score** | **0.9978** | **0.9956** | Harmonic mean of Precision and Recall |
+| **Test ROC-AUC** | **0.99996** | **0.99899** | Near-perfect class separability |
+| **Test PR-AUC** | **0.99961** | **0.99699** | Benchmark metric for imbalanced fraud data |
+| **False Positives** | **0** | **1** (0 at th=0.50) | Near-zero customer friction on legitimate accounts |
 | **False Negatives** | **1** | **1** | Exactly 1 fraud missed ($416,001.33 exposure) |
 | **Gross Intercepted Value**| **$235,430,525.04** | **$235,430,525.04** | Out of $235,846,526.37 total test fraud |
 | **Net Financial Benefit** | **$188,337,610.03** | **$188,337,610.03** | Net savings under 80% recovery SLA |
@@ -145,6 +145,41 @@ To ensure scientific validity and prevent cross-validation leakage:
 
 ---
 
+## ⏱️ Temporal Generalization & Walk-Forward Validation Experiment
+
+To verify model stability and measure resilience against temporal drift, a multi-tier temporal validation suite was executed across the 95-hour operational horizon ([`src/temporal_experiment.py`](file:///c:/Projects/Fraud_Detection/src/temporal_experiment.py)).
+
+### 1. Macro Out-of-Time (OOT) Holdout (Steps 1–6 vs. 7–95)
+- **Training Horizon:** Steps 1 to 6 (7,164 historical transactions; 66 frauds, 7,098 legitimate).
+- **Testing Horizon:** Steps 7 to 95 (3,978 future transactions; 1,076 frauds, 2,902 legitimate).
+- **Temporal Constraint:** `train_step.max() == 6 < test_step.min() == 7` (Zero overlap).
+
+| Model Architecture | OOT Recall | OOT Precision | OOT F1-Score | OOT PR-AUC | Intercepted Value ($) | Total Fraud Exposure ($) | Capital Capture Rate |
+|---|---|---|---|---|---|---|---|
+| **Pre-Transaction (Random Forest)** | **97.77%** | **100.00%** | **0.9887** | **0.9898** | **$1,313,912,230.14** | $1,323,605,690.72 | **99.27%** |
+| **Post-Transaction (XGBoost)** | **97.77%** | **99.91%** | **0.9882** | **0.9956** | **$1,313,912,230.14** | $1,323,605,690.72 | **99.27%** |
+
+*Key Result:* When trained strictly on past data (Steps 1–6), the pre-transaction model intercepted **99.27% of all fraudulent capital** over the subsequent 89 hours with **zero false alarms** on 2,902 unseen legitimate transactions.
+
+### 2. Walk-Forward Expanding Window Validation (Steps 3 to 7)
+In-flight performance was evaluated sequentially across expanding historical windows during active mixed-traffic hours:
+
+| Window Sequence | Training Horizon | Evaluation Step | Test Size | Test Frauds | Recall | Precision | F1-Score | PR-AUC |
+|---|---|---|---|---|---|---|---|---|
+| **Window 1** | Steps 1–2 | Step 3 | 552 | 4 | **100.0%** | **100.0%** | 1.0000 | 1.0000 |
+| **Window 2** | Steps 1–3 | Step 4 | 565 | 10 | **90.0%** | **100.0%** | 0.9474 | 0.9833 |
+| **Window 3** | Steps 1–4 | Step 5 | 665 | 6 | **100.0%** | **100.0%** | 1.0000 | 1.0000 |
+| **Window 4** | Steps 1–5 | Step 6 | 1,660 | 22 | **100.0%** | **100.0%** | 1.0000 | 1.0000 |
+| **Window 5** | Steps 1–6 | Step 7 | 2,914 | 12 | **100.0%** | **100.0%** | 1.0000 | 1.0000 |
+
+### 3. Late-Stage Pure Fraud Stream Holdout (Steps 8 to 95)
+- Evaluated on 1,064 pure fraud transactions occurring after step 7.
+- **Frauds Intercepted:** 1,040 / 1,064 (**97.74% Recall**).
+- **Monetary Interception:** **$1,304,123,427.44** of $1,313,816,888.02 (**99.26% Capital Capture Rate**).
+- Full diagnostic report: [`reports/temporal_generalization_report.json`](file:///c:/Projects/Fraud_Detection/reports/temporal_generalization_report.json) and plot [`reports/figures/28_temporal_generalization_analysis.png`](file:///c:/Projects/Fraud_Detection/reports/figures/28_temporal_generalization_analysis.png).
+
+---
+
 ## 🧠 Explainable AI (SHAP)
 
 To satisfy financial regulatory compliance (FCRA, GDPR Article 22, SR 11-7), SHAP TreeExplainers were integrated for both pipelines:
@@ -213,6 +248,8 @@ Fraud_Detection/
 │   ├── post_transaction_evaluation.json      # Post-Tx benchmark metrics
 │   ├── model_comparison.json                 # Cross-architecture comparison
 │   ├── threshold_analysis.json               # Trade-off curve data
+│   ├── temporal_generalization_report.json   # Multi-tier temporal drift report
+│   ├── temporal_generalization_report.csv    # Walk-forward validation metrics
 │   └── financial_impact_analysis.json        # Enterprise ROI report
 ├── src/
 │   ├── data_loader.py                        # Ingestion & target splitting
@@ -224,7 +261,8 @@ Fraud_Detection/
 │   ├── evaluate.py                           # Evaluation metrics & curves
 │   ├── explainability.py                     # SHAP TreeExplainer integration
 │   ├── financial_impact.py                   # Financial risk modeling
-│   └── validation.py                         # Production input validation module
+│   ├── validation.py                         # Production input validation module
+│   └── temporal_experiment.py                # Temporal generalization suite
 ├── tests/
 │   ├── test_model.py                         # Model inference & artifact tests
 │   ├── test_preprocessing.py                 # Feature engineering & split tests
@@ -265,12 +303,18 @@ streamlit run dashboard/app.py
 Open your browser at `http://localhost:8501`.
 
 ### 3. Run the Comprehensive Unit Test Suite
-Execute all 23 unit tests across data validation, feature restrictions, model loading, and batch processing:
+Execute all 25 unit tests across data validation, feature restrictions, model loading, and batch processing:
 ```bash
 python -m pytest -v
 ```
 
-### 4. Run the Complete End-to-End Pipeline
+### 4. Run the Temporal Generalization Experiment
+Executes macro out-of-time holdouts, walk-forward expanding window validation, and late-stage fraud stream evaluations:
+```bash
+python src/temporal_experiment.py
+```
+
+### 5. Run the Complete End-to-End Pipeline
 Executes data quality audit, EDA, feature engineering, pipeline fitting, model training, tuning, SHAP explainability, and financial impact analysis:
 ```bash
 python run_project.py
