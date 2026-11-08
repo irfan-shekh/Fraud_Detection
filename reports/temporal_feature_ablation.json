@@ -1,0 +1,160 @@
+{
+    "Exp_A_Full_Pre_Transaction": {
+        "experiment_id": "Exp_A_Full_Pre_Transaction",
+        "name": "Experiment A: Full Pre-Transaction Features",
+        "description": "Baseline pre-transaction feature set (including step, hour, day, and balance ratio).",
+        "features_excluded": [],
+        "features_used_count": 13,
+        "feature_names": [
+            "step",
+            "type",
+            "amount",
+            "oldbalanceOrg",
+            "oldbalanceDest",
+            "transaction_hour",
+            "transaction_day",
+            "transaction_amount_log",
+            "merchant_destination",
+            "amount_to_oldbalance_orig_ratio",
+            "orig_has_zero_balance",
+            "dest_has_zero_balance",
+            "empty_account_flag"
+        ],
+        "optimal_threshold": 0.14999999999999997,
+        "metrics": {
+            "accuracy": 0.9939668174962293,
+            "precision": 1.0,
+            "recall": 0.9776951672862454,
+            "f1_score": 0.9887218045112782,
+            "roc_auc": 0.992732226717121,
+            "pr_auc": 0.989772447011991,
+            "true_positives": 1052,
+            "false_positives": 0,
+            "true_negatives": 2902,
+            "false_negatives": 24,
+            "fraud_cases_detected": 1052,
+            "total_fraud_cases": 1076,
+            "fraud_value_flagged_usd": 1316538121.5,
+            "total_fraud_exposure_usd": 1326231582.08,
+            "capital_capture_rate": 0.9926909744037333,
+            "training_time_seconds": 1.0312,
+            "inference_time_seconds": 0.0834
+        },
+        "confusion_matrix": [
+            [
+                2902,
+                0
+            ],
+            [
+                24,
+                1052
+            ]
+        ]
+    },
+    "Exp_B_Remove_Temporal": {
+        "experiment_id": "Exp_B_Remove_Temporal",
+        "name": "Experiment B: Remove Temporal Features",
+        "description": "Excludes temporal attributes: step, transaction_hour, transaction_day.",
+        "features_excluded": [
+            "step",
+            "transaction_hour",
+            "transaction_day"
+        ],
+        "features_used_count": 10,
+        "feature_names": [
+            "type",
+            "amount",
+            "oldbalanceOrg",
+            "oldbalanceDest",
+            "transaction_amount_log",
+            "merchant_destination",
+            "amount_to_oldbalance_orig_ratio",
+            "orig_has_zero_balance",
+            "dest_has_zero_balance",
+            "empty_account_flag"
+        ],
+        "optimal_threshold": 0.20999999999999996,
+        "metrics": {
+            "accuracy": 0.9947209653092006,
+            "precision": 0.9990539262062441,
+            "recall": 0.9814126394052045,
+            "f1_score": 0.9901547116736991,
+            "roc_auc": 0.9949771853278984,
+            "pr_auc": 0.9928591378267253,
+            "true_positives": 1056,
+            "false_positives": 1,
+            "true_negatives": 2901,
+            "false_negatives": 20,
+            "fraud_cases_detected": 1056,
+            "total_fraud_cases": 1076,
+            "fraud_value_flagged_usd": 1318255376.5300002,
+            "total_fraud_exposure_usd": 1326231582.08,
+            "capital_capture_rate": 0.9939858123891981,
+            "training_time_seconds": 0.748,
+            "inference_time_seconds": 0.0716
+        },
+        "confusion_matrix": [
+            [
+                2901,
+                1
+            ],
+            [
+                20,
+                1056
+            ]
+        ]
+    },
+    "Exp_C_Remove_Temporal_and_Ratio": {
+        "experiment_id": "Exp_C_Remove_Temporal_and_Ratio",
+        "name": "Experiment C: Remove Temporal & Balance Ratio",
+        "description": "Excludes temporal attributes (step, hour, day) AND amount_to_oldbalance_orig_ratio.",
+        "features_excluded": [
+            "step",
+            "transaction_hour",
+            "transaction_day",
+            "amount_to_oldbalance_orig_ratio"
+        ],
+        "features_used_count": 9,
+        "feature_names": [
+            "type",
+            "amount",
+            "oldbalanceOrg",
+            "oldbalanceDest",
+            "transaction_amount_log",
+            "merchant_destination",
+            "orig_has_zero_balance",
+            "dest_has_zero_balance",
+            "empty_account_flag"
+        ],
+        "optimal_threshold": 0.25999999999999995,
+        "metrics": {
+            "accuracy": 0.9947209653092006,
+            "precision": 0.9990539262062441,
+            "recall": 0.9814126394052045,
+            "f1_score": 0.9901547116736991,
+            "roc_auc": 0.9940199554723188,
+            "pr_auc": 0.9915835084894654,
+            "true_positives": 1056,
+            "false_positives": 1,
+            "true_negatives": 2901,
+            "false_negatives": 20,
+            "fraud_cases_detected": 1056,
+            "total_fraud_cases": 1076,
+            "fraud_value_flagged_usd": 1318255376.5300002,
+            "total_fraud_exposure_usd": 1326231582.08,
+            "capital_capture_rate": 0.9939858123891981,
+            "training_time_seconds": 0.7652,
+            "inference_time_seconds": 0.0552
+        },
+        "confusion_matrix": [
+            [
+                2901,
+                1
+            ],
+            [
+                20,
+                1056
+            ]
+        ]
+    }
+}

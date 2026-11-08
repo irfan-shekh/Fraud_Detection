@@ -1,0 +1,4 @@
+Experiment,Features,Threshold,Precision,Recall,F1_Score,PR_AUC,FP,FN,Frauds_Caught,Capture_Rate
+Experiment A: Full Pre-Transaction Features,13,0.15,1.0,0.9777,0.9887,0.9898,0,24,1052/1076,99.27%
+Experiment B: Remove Temporal Features,10,0.21,0.9991,0.9814,0.9902,0.9929,1,20,1056/1076,99.40%
+Experiment C: Remove Temporal & Balance Ratio,9,0.26,0.9991,0.9814,0.9902,0.9916,1,20,1056/1076,99.40%

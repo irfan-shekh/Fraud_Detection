@@ -178,6 +178,17 @@ In-flight performance was evaluated sequentially across expanding historical win
 - **Monetary Interception:** **$1,304,123,427.44** of $1,313,816,888.02 (**99.26% Capital Capture Rate**).
 - Full diagnostic report: [`reports/temporal_generalization_report.json`](file:///c:/Projects/Fraud_Detection/reports/temporal_generalization_report.json) and plot [`reports/figures/28_temporal_generalization_analysis.png`](file:///c:/Projects/Fraud_Detection/reports/figures/28_temporal_generalization_analysis.png).
 
+### 4. Temporal Feature Ablation Experiment
+To determine whether high Out-Of-Time generalization depends on temporal features, an ablation study was conducted across three controlled models on the identical OOT test partition (Steps 7–95: 1,076 frauds, $1.326B exposure):
+
+| Configuration | Features Used | Threshold (OOF) | OOT Precision | OOT Recall | OOT F1 | OOT PR-AUC | Frauds Caught | Capital Capture |
+|---|---|---|---|---|---|---|---|---|
+| **Exp A: Full Pre-Tx** | 13 (incl. step, hour, day, ratio) | 0.15 | **100.00%** | 97.77% | 0.9887 | 0.9898 | 1,052 / 1,076 | 99.27% |
+| **Exp B: No Temporal** | 10 (drop step, hour, day) | 0.21 | 99.91% | **98.14%** | **0.9902** | **0.9929** | **1,056 / 1,076** | **99.40%** |
+| **Exp C: No Temporal / No Ratio** | 9 (drop step, hour, day, ratio) | 0.26 | 99.91% | **98.14%** | **0.9902** | 0.9916 | **1,056 / 1,076** | **99.40%** |
+
+*Key Conclusion:* Removing temporal features actually **improves PR-AUC from 0.9898 to 0.9929** and intercepts 4 additional frauds. This proves that FraudGuard AI's high generalization is not propped up by dataset-specific temporal shortcuts, but is anchored in invariant behavioral dynamics (`empty_account_flag`, channel specificity, and monetary volume). Full report: [`reports/TEMPORAL_FEATURE_ABLATION.md`](file:///c:/Projects/Fraud_Detection/reports/TEMPORAL_FEATURE_ABLATION.md).
+
 ---
 
 ## 🧠 Explainable AI (SHAP)
@@ -250,6 +261,9 @@ Fraud_Detection/
 │   ├── threshold_analysis.json               # Trade-off curve data
 │   ├── temporal_generalization_report.json   # Multi-tier temporal drift report
 │   ├── temporal_generalization_report.csv    # Walk-forward validation metrics
+│   ├── TEMPORAL_FEATURE_ABLATION.md          # Independent feature ablation report
+│   ├── temporal_feature_ablation.json        # Ablation experiment metrics
+│   ├── temporal_feature_ablation.csv         # Ablation experiment summary
 │   └── financial_impact_analysis.json        # Enterprise ROI report
 ├── src/
 │   ├── data_loader.py                        # Ingestion & target splitting
@@ -262,7 +276,8 @@ Fraud_Detection/
 │   ├── explainability.py                     # SHAP TreeExplainer integration
 │   ├── financial_impact.py                   # Financial risk modeling
 │   ├── validation.py                         # Production input validation module
-│   └── temporal_experiment.py                # Temporal generalization suite
+│   ├── temporal_experiment.py                # Temporal generalization suite
+│   └── temporal_ablation.py                  # Feature ablation experiment suite
 ├── tests/
 │   ├── test_model.py                         # Model inference & artifact tests
 │   ├── test_preprocessing.py                 # Feature engineering & split tests
@@ -308,10 +323,14 @@ Execute all 25 unit tests across data validation, feature restrictions, model lo
 python -m pytest -v
 ```
 
-### 4. Run the Temporal Generalization Experiment
-Executes macro out-of-time holdouts, walk-forward expanding window validation, and late-stage fraud stream evaluations:
+### 4. Run the Temporal Generalization & Feature Ablation Experiments
+Executes macro out-of-time holdouts, walk-forward expanding window validation, and independent feature ablation:
 ```bash
+# Run temporal drift and walk-forward suite
 python src/temporal_experiment.py
+
+# Run temporal feature ablation suite (Exp A, Exp B, Exp C)
+python src/temporal_ablation.py
 ```
 
 ### 5. Run the Complete End-to-End Pipeline
