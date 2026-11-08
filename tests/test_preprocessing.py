@@ -68,5 +68,5 @@ def test_train_test_split():
 def test_chronological_split():
     X_train, X_test, y_train, y_test = create_chronological_split(test_size=0.2)
     assert len(X_train) + len(X_test) == 11142
-    assert X_train["step"].max() <= X_test["step"].min()
+    assert X_train["step"].max() < X_test["step"].min()
 

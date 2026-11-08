@@ -249,3 +249,4 @@ def validate_batch_dataframe(
             )
 
     return clean_df, warnings
+

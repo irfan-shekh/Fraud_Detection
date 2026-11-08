@@ -80,7 +80,11 @@ def load_model_artifacts(mode: str = "post") -> Dict[str, Any]:
     """
     Load serialized model, preprocessor, and metadata for 'pre' or 'post' transaction mode.
     """
-    if mode.lower() == "pre":
+    mode_clean = str(mode).lower()
+    if mode_clean not in ["pre", "post"]:
+        raise ValueError(f"Invalid model mode '{mode}'. Must be either 'pre' or 'post'.")
+
+    if mode_clean == "pre":
         m_path = PRE_MODEL_PATH
         p_path = PRE_PIPELINE_PATH
         meta_path = PRE_METADATA_PATH

@@ -124,9 +124,12 @@ def create_chronological_split(
     test_size: float = 0.2,
     mode: str = "post",
     use_feature_engineering: bool = True,
+    step_cutoff: Optional[int] = None,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """
     Chronological validation split based on transaction 'step' (hour).
+    Enforces strict temporal separation: train timestamps are strictly earlier than test timestamps
+    with zero step overlap between partitions (train_step < test_step).
     """
     if df is None:
         df = load_raw_data()
@@ -141,18 +144,39 @@ def create_chronological_split(
         df_proc = engineer_post_transaction_features(df, drop_identifiers=True)
 
     df_sorted = df_proc.sort_values(by="step").reset_index(drop=True)
-    split_idx = int(len(df_sorted) * (1 - test_size))
 
-    train_df = df_sorted.iloc[:split_idx]
-    test_df = df_sorted.iloc[split_idx:]
+    if step_cutoff is not None:
+        train_df = df_sorted[df_sorted["step"] <= step_cutoff].reset_index(drop=True)
+        test_df = df_sorted[df_sorted["step"] > step_cutoff].reset_index(drop=True)
+    else:
+        # Determine unique step cutoff closest to target (1 - test_size)
+        # ensuring both train and test have positive fraud cases and max(train_step) < min(test_step)
+        target_n = int(len(df_sorted) * (1 - test_size))
+        unique_steps = np.sort(df_sorted["step"].unique())
+        best_cut = None
+        min_diff = float("inf")
+        for s in unique_steps[:-1]:
+            tr = df_sorted[df_sorted["step"] <= s]
+            te = df_sorted[df_sorted["step"] > s]
+            if tr["isFraud"].sum() > 0 and te["isFraud"].sum() > 0 and len(te["isFraud"].unique()) > 1:
+                diff = abs(len(tr) - target_n)
+                if diff < min_diff:
+                    min_diff = diff
+                    best_cut = s
+
+        if best_cut is None:
+            best_cut = 6  # fallback to step 6
+
+        train_df = df_sorted[df_sorted["step"] <= best_cut].reset_index(drop=True)
+        test_df = df_sorted[df_sorted["step"] > best_cut].reset_index(drop=True)
 
     X_train, y_train = split_features_target(train_df, "isFraud")
     X_test, y_test = split_features_target(test_df, "isFraud")
 
     print(
         f"[CHRONOLOGICAL SPLIT - {mode.upper()}] Train steps: {train_df['step'].min()} - {train_df['step'].max()} "
-        f"({y_train.sum()} frauds) | Test steps: {test_df['step'].min()} - {test_df['step'].max()} "
-        f"({y_test.sum()} frauds)"
+        f"({y_train.sum()} frauds, {len(train_df)} rows) | Test steps: {test_df['step'].min()} - {test_df['step'].max()} "
+        f"({y_test.sum()} frauds, {len(test_df)} rows)"
     )
     return X_train, X_test, y_train, y_test
 

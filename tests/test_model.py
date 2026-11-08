@@ -75,3 +75,15 @@ def test_legitimate_prediction():
     assert res["is_fraud"] is False
     assert res["probability"] < 0.20
     assert res["risk_category"] == "MINIMAL"
+
+
+def test_invalid_mode_handling():
+    with pytest.raises(ValueError, match="Invalid model mode"):
+        load_model_artifacts(mode="unsupported_mode")
+
+
+def test_missing_artifact_handling():
+    from unittest.mock import patch
+    with patch("os.path.exists", return_value=False):
+        with pytest.raises(FileNotFoundError):
+            load_model_artifacts(mode="pre")
