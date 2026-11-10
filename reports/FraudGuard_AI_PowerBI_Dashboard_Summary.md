@@ -378,17 +378,18 @@ It brings together Power BI visualizations and DAX measures to make
 transaction patterns, reported model performance, risk classifications,
 and financial exposure easier to explore.
 
-```
-
 Check dataset and internship/provider sharing terms before uploading the
 dataset or restricted files. If the `.pbix` contains sensitive data or
 credentials, remove them before publishing.
 
-------------------------------------------------------------------------
+---
 
 **Project:** FraudGuard AI --- Dual-Engine Financial Fraud Detection
 System\
 **Dashboard:** Power BI --- Five-page Financial Fraud Detection &
 Analytics Report\
 **Data:** Synthetic transaction dataset
+
+```
+
 ```
