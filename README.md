@@ -225,6 +225,18 @@ The live application features 7 specialized navigation pages:
 
 ---
 
+## 📊 Power BI Executive Analytics Dashboard
+
+In addition to the live Streamlit app, FraudGuard AI includes a **5-page interactive Power BI Desktop report** ([`reports/Fraud_Detection.pbix`](file:///c:/Projects/Fraud_Detection/reports/Fraud_Detection.pbix)) powered by the enriched dataset ([`reports/fraud_detection_bi_dataset.csv`](file:///c:/Projects/Fraud_Detection/reports/fraud_detection_bi_dataset.csv)) and custom DAX measures, documented in [`reports/FraudGuard_AI_PowerBI_Dashboard_Summary.md`](file:///c:/Projects/Fraud_Detection/reports/FraudGuard_AI_PowerBI_Dashboard_Summary.md):
+
+1. **Executive Overview:** Top-line KPI cards (11,142 Total Transactions, 1,142 Frauds, 10.25% Fraud Rate, ~$1.36B Fraud Exposure), transaction breakdowns by type, and fraud activity by simulation step.
+2. **Transaction Analysis:** Interactive filtering slicers (`type`, `Risk_Tier`, `Prediction_Status`), transaction value histograms, and channel-wise average amounts.
+3. **AI Model Performance:** Held-out test metrics comparison between the Pre-Transaction Random Forest (100.00% Precision, 99.56% Recall, 99.96% PR-AUC) and Post-Transaction XGBoost (99.56% Precision, 99.56% Recall, 99.70% PR-AUC), alongside confusion matrix KPIs.
+4. **Risk Intelligence:** Distribution across model-assigned Risk Tiers (`Critical Risk`: 1,139; `High Risk`: 2; `Minimal Risk`: 10,001), probability histogram, and Actual vs. Predicted counts (`1,142` vs `1,141`).
+5. **Temporal & Financial Analysis:** Simulation step trend lines (`TRANSFER`: ~$681.6M; `CASH_OUT`: ~$680.38M) with explicit synthetic data and step-7 temporal distribution disclosures.
+
+---
+
 ## 📁 Repository Structure
 
 ```text
@@ -252,19 +264,24 @@ Fraud_Detection/
 ├── notebooks/
 │   └── Fraud_Detection_Analysis.ipynb        # Complete executed capstone notebook
 ├── reports/
-│   ├── figures/                              # High-resolution diagnostic charts
-│   ├── AUDIT_REPORT.md                       # Comprehensive 10-point audit report
-│   ├── feature_audit.json                    # Feature dictionary with availability timing
-│   ├── pre_transaction_evaluation.json       # Pre-Tx benchmark metrics
-│   ├── post_transaction_evaluation.json      # Post-Tx benchmark metrics
-│   ├── model_comparison.json                 # Cross-architecture comparison
-│   ├── threshold_analysis.json               # Trade-off curve data
-│   ├── temporal_generalization_report.json   # Multi-tier temporal drift report
-│   ├── temporal_generalization_report.csv    # Walk-forward validation metrics
-│   ├── TEMPORAL_FEATURE_ABLATION.md          # Independent feature ablation report
-│   ├── temporal_feature_ablation.json        # Ablation experiment metrics
-│   ├── temporal_feature_ablation.csv         # Ablation experiment summary
-│   └── financial_impact_analysis.json        # Enterprise ROI report
+│   ├── figures/                                   # High-resolution diagnostic charts
+│   ├── Fraud_Detection.pbix                       # 5-page Power BI Desktop dashboard
+│   ├── FraudGuard_AI_PowerBI_Dashboard_Summary.md # Power BI KPI, DAX & layout documentation
+│   ├── fraud_detection_bi_dataset.csv             # Enriched BI export (11,142 records)
+│   ├── Fraud_Detection_Final_Report.docx          # Formal 14-section academic report
+│   ├── AUDIT_REPORT.md                            # Comprehensive 10-point audit report
+│   ├── FINAL_INDEPENDENT_AUDIT.md                 # Independent ML Auditor sign-off report
+│   ├── feature_audit.json                         # Feature dictionary with availability timing
+│   ├── pre_transaction_evaluation.json            # Pre-Tx benchmark metrics
+│   ├── post_transaction_evaluation.json           # Post-Tx benchmark metrics
+│   ├── model_comparison.json                      # Cross-architecture comparison
+│   ├── threshold_analysis.json                    # Trade-off curve data
+│   ├── temporal_generalization_report.json        # Multi-tier temporal drift report
+│   ├── temporal_generalization_report.csv         # Walk-forward validation metrics
+│   ├── TEMPORAL_FEATURE_ABLATION.md               # Independent feature ablation report
+│   ├── temporal_feature_ablation.json             # Ablation experiment metrics
+│   ├── temporal_feature_ablation.csv              # Ablation experiment summary
+│   └── financial_impact_analysis.json             # Enterprise ROI report
 ├── src/
 │   ├── data_loader.py                        # Ingestion & target splitting
 │   ├── data_validation.py                    # Quality audit utilities
