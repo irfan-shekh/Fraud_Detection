@@ -2,6 +2,7 @@
 ### Boston Institute of Analytics (BIA) — Data Science Capstone Project
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717.svg?logo=github)](https://github.com/irfan-shekh/Fraud_Detection)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://frauddetection-17.streamlit.app)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4%2B-F7931E.svg)](https://scikit-learn.org/)
 [![Pytest Passed](https://img.shields.io/badge/pytest-25%20passed-brightgreen.svg)](tests/)
@@ -9,7 +10,8 @@
 
 An enterprise-grade Machine Learning intelligence platform developed for the **Boston Institute of Analytics (BIA)** Data Science Capstone. The system features a **Dual-Architecture Engine** that rigorously distinguishes between **Pre-Transaction Fraud Screening** (real-time pre-authorization switch with zero leakage) and **Post-Transaction Fraud Detection** (post-clearing ledger reconciliation & audit), evaluates enterprise monetary exposure, provides model explainability through SHAP, and delivers an interactive 7-page analytics dashboard via Streamlit.
 
-🔗 **Live Production Application:** [https://frauddetection-17.streamlit.app](https://frauddetection-17.streamlit.app)
+🔗 **Live Production Application:** [https://frauddetection-17.streamlit.app](https://frauddetection-17.streamlit.app)  
+📁 **GitHub Repository:** [https://github.com/irfan-shekh/Fraud_Detection](https://github.com/irfan-shekh/Fraud_Detection)
 
 ---
 
