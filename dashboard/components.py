@@ -241,3 +241,111 @@ def create_risk_gauge(probability: float) -> go.Figure:
     fig.update_layout(height=240, margin=dict(t=30, b=10, l=20, r=20))
     return fig
 
+
+def create_dynamic_financial_breakdown_chart(
+    gross_prevented: float,
+    total_review_cost: float,
+    friction_cost: float,
+    net_benefit: float,
+    missed_fraud_amt: float,
+) -> go.Figure:
+    """Create an interactive Plotly bar chart dynamically reacting to simulator parameters."""
+    categories = [
+        "Gross Fraud Intercepted",
+        "Operational Review Cost",
+        "FP Customer Friction",
+        "Net Financial Benefit",
+        "Missed Fraud Loss",
+    ]
+    values = [
+        gross_prevented,
+        total_review_cost,
+        friction_cost,
+        net_benefit,
+        missed_fraud_amt,
+    ]
+    colors = [
+        "#2A9D8F",  # Teal green for gross prevented
+        "#E76F51",  # Orange red for review cost
+        "#F4A261",  # Orange for friction cost
+        "#1B4332",  # Deep emerald for net benefit
+        "#E63946",  # Red for missed loss
+    ]
+
+    fig = go.Figure(
+        go.Bar(
+            x=categories,
+            y=values,
+            marker_color=colors,
+            text=[f"${v:,.0f}" for v in values],
+            textposition="auto",
+        )
+    )
+    fig.update_layout(
+        title="Live Financial Impact Breakdown ($ USD)",
+        xaxis_title="Financial Component",
+        yaxis_title="USD ($)",
+        margin=dict(t=40, b=30, l=20, r=20),
+        height=360,
+    )
+    return fig
+
+
+def create_dynamic_financial_scenario_comparison_chart(
+    custom_benefit: float,
+    custom_cost: float,
+    custom_recovery_pct: float,
+) -> go.Figure:
+    """Compare benchmark scenarios with the user's custom live slider configuration."""
+    scenarios = [
+        "High Efficiency (90% Recov)",
+        "Base Case (80% Recov)",
+        "Conservative (70% Recov)",
+        f"⚡ Live Custom ({custom_recovery_pct:.0f}% Recov)",
+    ]
+    net_benefits = [
+        211884067.54,
+        188337610.03,
+        164787747.53,
+        custom_benefit,
+    ]
+    op_costs = [
+        3405.00,
+        6810.00,
+        13620.00,
+        custom_cost,
+    ]
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Bar(
+            name="Net Financial Benefit ($)",
+            x=scenarios,
+            y=net_benefits,
+            marker_color=["#52B788", "#2A9D8F", "#1D3557", "#0077B6"],
+            text=[f"${v/1e6:,.1f}M" for v in net_benefits],
+            textposition="auto",
+        )
+    )
+    fig.add_trace(
+        go.Bar(
+            name="Operational Review Cost ($)",
+            x=scenarios,
+            y=op_costs,
+            marker_color="#F4A261",
+            text=[f"${v:,.0f}" for v in op_costs],
+            textposition="auto",
+        )
+    )
+
+    fig.update_layout(
+        title="Enterprise Scenarios vs. Your Live Custom Configuration",
+        barmode="group",
+        xaxis_title="Scenario",
+        yaxis_title="USD ($)",
+        margin=dict(t=40, b=30, l=20, r=20),
+        height=360,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    )
+    return fig
+

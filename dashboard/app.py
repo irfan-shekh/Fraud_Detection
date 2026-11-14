@@ -29,6 +29,8 @@ try:
         create_type_fraud_bar,
         create_hourly_trend_line,
         create_risk_gauge,
+        create_dynamic_financial_breakdown_chart,
+        create_dynamic_financial_scenario_comparison_chart,
     )
     from dashboard.utils import (
         load_model_artifacts,
@@ -590,22 +592,27 @@ elif navigation == "🧠 Explainable AI (SHAP)":
     is_pre = "Pre" in shap_mode
     mode_str = "pre" if is_pre else "post"
 
+    if is_pre:
+        st.info("⚡ **Pre-Transaction Model (Random Forest, 16 Features):** Explains real-time in-flight risk decisions using only features available prior to settlement (e.g. transfer amount, origin balance, merchant status, empty account intent).")
+    else:
+        st.info("🔍 **Post-Transaction Model (XGBoost, 26 Features):** Explains post-clearing forensic audit decisions incorporating ledger discrepancies, post-settlement balance changes, and settlement error deltas.")
+
     col_s1, col_s2 = st.columns(2)
     with col_s1:
-        st.markdown(f"#### Global Feature Impact Beeswarm ({mode_str.capitalize()})")
+        st.markdown(f"#### Global Feature Impact Beeswarm ({mode_str.upper()})")
         beeswarm_path = os.path.join(PROJECT_ROOT, "reports", "figures", f"20_shap_summary_{mode_str}.png")
         if not os.path.exists(beeswarm_path):
             beeswarm_path = os.path.join(PROJECT_ROOT, "reports", "figures", "20_shap_summary.png")
         if os.path.exists(beeswarm_path):
-            st.image(beeswarm_path, use_container_width=True)
+            st.image(beeswarm_path, caption=f"SHAP Summary Beeswarm ({mode_str.upper()} Model)", use_container_width=True)
 
     with col_s2:
-        st.markdown(f"#### Mean Absolute Feature Importance ({mode_str.capitalize()})")
+        st.markdown(f"#### Mean Absolute Feature Importance ({mode_str.upper()})")
         bar_path = os.path.join(PROJECT_ROOT, "reports", "figures", f"21_shap_importance_{mode_str}.png")
         if not os.path.exists(bar_path):
             bar_path = os.path.join(PROJECT_ROOT, "reports", "figures", "21_shap_feature_importance_bar.png")
         if os.path.exists(bar_path):
-            st.image(bar_path, use_container_width=True)
+            st.image(bar_path, caption=f"SHAP Feature Importance ({mode_str.upper()} Model)", use_container_width=True)
 
     st.markdown("---")
     st.markdown("#### Individual Transaction Waterfall Attributions")
@@ -615,14 +622,14 @@ elif navigation == "🧠 Explainable AI (SHAP)":
         if not os.path.exists(fraud_wf):
             fraud_wf = os.path.join(PROJECT_ROOT, "reports", "figures", "22_shap_individual_fraud_waterfall.png")
         if os.path.exists(fraud_wf):
-            st.image(fraud_wf, caption=f"SHAP Waterfall: High-Risk Fraud ({mode_str.capitalize()})", use_container_width=True)
+            st.image(fraud_wf, caption=f"SHAP Waterfall: High-Risk Fraud ({mode_str.upper()})", use_container_width=True)
 
     with wf2:
         legit_wf = os.path.join(PROJECT_ROOT, "reports", "figures", f"23_shap_waterfall_legit_{mode_str}.png")
         if not os.path.exists(legit_wf):
             legit_wf = os.path.join(PROJECT_ROOT, "reports", "figures", "23_shap_individual_legit_waterfall.png")
         if os.path.exists(legit_wf):
-            st.image(legit_wf, caption=f"SHAP Waterfall: Legitimate Transaction ({mode_str.capitalize()})", use_container_width=True)
+            st.image(legit_wf, caption=f"SHAP Waterfall: Legitimate Transaction ({mode_str.upper()})", use_container_width=True)
 
 
 # ==============================================================================
@@ -676,14 +683,35 @@ elif navigation == "💰 Financial Impact Analysis":
         render_metric_card("Missed Fraud Exposure", f"${missed_fraud_amt:,.2f}", "Capital loss from false negatives", "#E63946")
 
     st.markdown("---")
-    st.markdown("### 📈 Enterprise Scenario Breakdown")
-    f_chart1 = os.path.join(PROJECT_ROOT, "reports", "figures", "24_financial_impact_breakdown.png")
-    f_chart2 = os.path.join(PROJECT_ROOT, "reports", "figures", "25_financial_scenarios.png")
+    st.markdown("### 📈 Live Dynamic Enterprise Scenario Breakdown")
+    st.caption("⚡ These interactive charts dynamically recalculate in real-time as you adjust the SLA parameters in the sidebar.")
 
     f1, f2 = st.columns(2)
     with f1:
-        if os.path.exists(f_chart1):
-            st.image(f_chart1, use_container_width=True)
+        fig_breakdown = create_dynamic_financial_breakdown_chart(
+            gross_prevented=gross_prevented,
+            total_review_cost=total_review_cost,
+            friction_cost=friction_cost,
+            net_benefit=net_benefit,
+            missed_fraud_amt=missed_fraud_amt,
+        )
+        st.plotly_chart(fig_breakdown, use_container_width=True)
+
     with f2:
-        if os.path.exists(f_chart2):
-            st.image(f_chart2, use_container_width=True)
+        fig_scenarios = create_dynamic_financial_scenario_comparison_chart(
+            custom_benefit=net_benefit,
+            custom_cost=total_review_cost + friction_cost,
+            custom_recovery_pct=recovery_rate * 100.0,
+        )
+        st.plotly_chart(fig_scenarios, use_container_width=True)
+
+    with st.expander("📄 View Pre-Rendered Academic Benchmark PNG Charts (Static Baseline)"):
+        f_chart1 = os.path.join(PROJECT_ROOT, "reports", "figures", "24_financial_impact_breakdown.png")
+        f_chart2 = os.path.join(PROJECT_ROOT, "reports", "figures", "25_financial_scenarios.png")
+        col_img1, col_img2 = st.columns(2)
+        with col_img1:
+            if os.path.exists(f_chart1):
+                st.image(f_chart1, caption="Baseline Breakdown ($235.4M Test Holdout)", use_container_width=True)
+        with col_img2:
+            if os.path.exists(f_chart2):
+                st.image(f_chart2, caption="Standard 3-Scenario Comparison (80% SLA Base Case)", use_container_width=True)
