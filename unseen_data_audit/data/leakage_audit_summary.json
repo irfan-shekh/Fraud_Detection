@@ -1,0 +1,21 @@
+{
+    "n_total": 11142,
+    "n_fraud": 1142,
+    "n_legit": 10000,
+    "exact_duplicates": 0,
+    "feature_duplicates_no_id": 0,
+    "cross_split_duplicates_post": 0,
+    "cross_split_duplicates_pre": 0,
+    "unique_senders": 11142,
+    "unique_receivers": 7508,
+    "fraud_in_transfer_and_cashout_only": true,
+    "exact_drain_fraud_pct": 0.9711033274956217,
+    "exact_drain_legit_pct": 0.0,
+    "zero_orig_balance_fraud_pct": 0.9921190893169878,
+    "zero_orig_balance_legit_pct": 0.4028,
+    "sender_err_zero_fraud_pct": 0.9728546409807356,
+    "dest_never_credited_fraud_pct": 0.4754816112084063,
+    "step_legit_max": 7,
+    "step_fraud_max": 95,
+    "post_step7_pure_fraud_count": 1064
+}

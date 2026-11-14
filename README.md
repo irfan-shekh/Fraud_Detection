@@ -237,6 +237,67 @@ In addition to the live Streamlit app, FraudGuard AI includes a **5-page interac
 
 ---
 
+## 🔬 Independent Unseen Data Generalization & Reliability Audit
+
+An independent stress-testing audit was executed to answer a fundamental production question:  
+*Does the model genuinely learn fraud patterns and generalize to unseen transactions, or is the high performance (99.56%–100%) driven by synthetic dataset artifacts, data leakage, or overfitting?*
+
+The complete investigation is documented in 8 standalone reports and empirical datasets located in [`unseen_data_audit/`](unseen_data_audit/).
+
+### 1. Benchmark Holdout (Test A) vs. Independent Unseen Data (Test B)
+
+An independent evaluation dataset of **12,000 unseen transactions** (1,008 fraud attacks = 8.40% prevalence; seed `2026`) was generated relaxing synthetic shortcuts: legitimate accounts occasionally execute full balance transfers (e.g. closing accounts), fraudsters execute partial balance drains (20%–75%), and legitimate activity spans all 150 simulation steps.
+
+| Evaluation Metric | Pre-Tx RF (Test A: Holdout) | Pre-Tx RF (Test B: 12k Unseen) | Post-Tx XGB (Test A: Holdout) | Post-Tx XGB (Test B: 12k Unseen) | Production Assessment |
+|---|---|---|---|---|---|
+| **Sample Size ($N$)** | 2,229 | 12,000 | 2,229 | 12,000 | +438% sample volume |
+| **Fraud Attacks Caught** | **227 / 228 (99.56%)** | **980 / 1,008 (97.22%)** | **227 / 228 (99.56%)** | **980 / 1,008 (97.22%)** | **Catches 980 of 1,008 frauds; highly robust sensitivity** |
+| **Precision** | **100.00%** (0 FP) | **8.56%** (10,471 FP) | **99.56%** (1 FP) | **8.56%** (10,471 FP) | Severe false alarm spike when synthetic shortcuts relax |
+| **F1-Score** | 0.9978 | 0.1573 | 0.9956 | 0.1573 | Precision drag reduces harmonic mean |
+| **PR-AUC** | 0.9996 | 0.2207 | 0.9970 | **0.2652** | XGBoost exhibits superior ranking precision |
+| **ROC-AUC** | 1.0000 | 0.7128 | 0.9990 | **0.7973** | Post-Tx XGB preserves strong global separation |
+| **Capital Intercepted ($)** | $235,430,525.04 | $82,041,261.54 | $235,430,525.04 | $82,041,261.54 | Full dollar protection on caught frauds |
+| **Capital Capture Rate** | **99.82%** | **98.02%** | **99.82%** | **98.02%** | **$82.04M out of $83.70M fraud capital protected** |
+
+### 2. Forensic Discovery: Synthetic Liquidation Determinism
+The investigation discovered the exact mechanism explaining why benchmark models achieve near-perfect metrics:
+- **Synthetic Liquidation Determinism:** In the benchmark training data, **97.11% (1,109 / 1,142) of all frauds** have `amount == oldbalanceOrg` (complete balance drainage), whereas **0.00% (0 / 10,000)** of legitimate transactions drain an account.
+- **Temporal Step Segregation:** Legitimate transactions appear **only in steps 1 through 7**. Steps 8 through 95 contain 1,064 transactions, and **100% of them are fraud** (0 legitimate records).
+- **Channel Segregation:** 100% of frauds occurred strictly in `TRANSFER` and `CASH_OUT`. Zero in `PAYMENT`, `CASH_IN`, and `DEBIT`.
+
+When tested on unconstrained data where legitimate users close accounts or make large transfers, the model over-flags high-value transfers, resulting in $10,471$ false alarms.
+
+### 3. Distribution Shifts & Noise Stress Testing
+- **Off-Hours Shift (Hours 00:00–05:00):** Recall dropped from $97.22\%$ to **$71.63\%$ (120 frauds missed)**, exposing vulnerability to temporal features (`step`, `transaction_hour`).
+- **Low Prevalence (0.22% Fraud Base Rate):** Model achieved **100.00% Recall** (40 / 40 caught), but produced 17,621 False Positives, illustrating the **Base-Rate Fallacy in Banking** (440 false alerts per true fraud).
+- **Novel Channels (Fraud in Payment/Debit):** Pre-Tx RF ROC-AUC collapsed to $0.4391$, while **Post-Tx XGBoost maintained ROC-AUC of 0.7016 and PR-AUC of 0.2215**, proving post-settlement ledger physics (`balance_error_orig`) detect fraud regardless of channel.
+- **Continuous Noise Perturbations (5% to 20% Gaussian Jitter):** Recall remained rock-solid at **96.23%** across all noise tiers, proving the model relies on structural/categorical indicators rather than delicate numerical precision.
+
+### 4. Permutation Importance & Shortcut Exposure on Unseen Data
+Permutation feature importance on the 12,000 unseen transactions revealed:
+1. `merchant_destination` (+0.0534 $\Delta$ PR-AUC): Primary legitimate transaction filter.
+2. `empty_account_flag` (+0.0483 $\Delta$ PR-AUC): Core fraud liquidation signal.
+3. `type_PAYMENT` (+0.0415 $\Delta$ PR-AUC): Retail channel filter.
+4. `amount_to_oldbalance_orig_ratio` (**-0.0437 $\Delta$ PR-AUC**): **Negative importance.** Permuting this ratio actually *improved* performance on unseen data because it was a synthetic shortcut that caused false alarms on legitimate account closures.
+
+### 5. Final Auditor Verdict & Reliability Rating
+- **Production Status:** **Conditionally Viable for Risk Screening / 2FA Triggering, NOT for Autonomous Transaction Blocking.**
+- **Generalization:** Model genuinely detects large transfers, attack channels, and liquidation behavior ($97.22\%$ recall), but overfits to synthetic negative distribution assumptions.
+- **Deployment Recommendation:** Deploy a three-tier policy: Auto-Approve ($\hat{p} < 0.40$), Step-Up 2FA / Biometrics ($0.40 \le \hat{p} < 0.70$), and Hold for AML Review ($\hat{p} \ge 0.70$). Raising threshold to $0.70$ eliminates **2,368 false alarms (22.6% reduction)** while capturing **89.58% of all fraud attacks**.
+- **Overall Reliability Rating:** **MODERATELY RELIABLE (GRADE: B+)**.
+
+### 6. Audit Deliverables Index
+- [Audit Synthesis & Technical Interview Defense](unseen_data_audit/final_model_reliability_report.md)
+- [Project Inspection & Baseline Report](unseen_data_audit/project_inspection_report.md)
+- [Synthetic Leakage & Artifact Forensic Report](unseen_data_audit/data_leakage_audit.md)
+- [12,000 Unseen Data Evaluation Report](unseen_data_audit/unseen_data_evaluation_report.md)
+- [6 Distribution Shifts Stress-Test Report](unseen_data_audit/distribution_shift_report.md)
+- [Noise Perturbation Robustness Report](unseen_data_audit/robustness_test_report.md)
+- [Generalization Gap & Threshold Sensitivity Report](unseen_data_audit/model_generalization_report.md)
+- [Permutation Feature Importance Report](unseen_data_audit/feature_importance_report.md)
+
+---
+
 ## 📁 Repository Structure
 
 ```text
@@ -263,6 +324,17 @@ Fraud_Detection/
 │   └── model_metadata.json                   # Backward-compatible metadata
 ├── notebooks/
 │   └── Fraud_Detection_Analysis.ipynb        # Complete executed capstone notebook
+├── unseen_data_audit/                        # Independent Unseen Data Stress-Testing Suite
+│   ├── data/                                 # 12,000 unseen txs, permutation importance, JSONs
+│   ├── figures/                              # 4 high-res generalization & shift diagnostic figures
+│   ├── project_inspection_report.md          # Architectural & pipeline inspection
+│   ├── data_leakage_audit.md                 # Forensic synthetic artifact & liquidation analysis
+│   ├── unseen_data_evaluation_report.md      # Test A vs. Test B (12k unseen) empirical breakdown
+│   ├── distribution_shift_report.md          # 6 operational shift stress tests
+│   ├── robustness_test_report.md             # Continuous Gaussian noise jitter tests (5%–20%)
+│   ├── model_generalization_report.md        # Generalization gap & threshold sensitivity
+│   ├── feature_importance_report.md          # Permutation feature importance on unseen data
+│   └── final_model_reliability_report.md     # Master synthesis, Phase 9 verdict & Phase 10 defense
 ├── reports/
 │   ├── figures/                                   # High-resolution diagnostic charts
 │   ├── Fraud_Detection.pbix                       # 5-page Power BI Desktop dashboard

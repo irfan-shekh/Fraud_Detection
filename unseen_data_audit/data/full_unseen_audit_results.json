@@ -1,0 +1,1199 @@
+{
+  "test_a_original_holdout": {
+    "pre_transaction": {
+      "accuracy": 0.9995513683266039,
+      "precision": 1.0,
+      "recall": 0.9956140350877193,
+      "f1_score": 0.9978021978021978,
+      "specificity": 1.0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0043859649122807015,
+      "roc_auc": 0.9999649298157939,
+      "pr_auc": 0.9996140350877193,
+      "true_positives": 227,
+      "false_positives": 0,
+      "true_negatives": 2001,
+      "false_negatives": 1,
+      "confusion_matrix": [
+        [
+          2001,
+          0
+        ],
+        [
+          1,
+          227
+        ]
+      ],
+      "total_transactions": 2229,
+      "total_frauds": 228,
+      "total_fraud_value_usd": 235846526.37,
+      "flagged_fraud_value_usd": 235430525.04,
+      "capital_capture_rate": 0.9982361354377237,
+      "threshold": 0.20999999999999996
+    },
+    "post_transaction": {
+      "accuracy": 0.9991027366532077,
+      "precision": 0.9956140350877193,
+      "recall": 0.9956140350877193,
+      "f1_score": 0.9956140350877193,
+      "specificity": 0.9995002498750625,
+      "false_positive_rate": 0.0004997501249375312,
+      "false_negative_rate": 0.0043859649122807015,
+      "roc_auc": 0.9989950200338427,
+      "pr_auc": 0.9969990766389658,
+      "true_positives": 227,
+      "false_positives": 1,
+      "true_negatives": 2000,
+      "false_negatives": 1,
+      "confusion_matrix": [
+        [
+          2000,
+          1
+        ],
+        [
+          1,
+          227
+        ]
+      ],
+      "total_transactions": 2229,
+      "total_frauds": 228,
+      "total_fraud_value_usd": 235846526.37,
+      "flagged_fraud_value_usd": 235430525.04,
+      "capital_capture_rate": 0.9982361354377237,
+      "threshold": 0.07
+    }
+  },
+  "test_b_independent_unseen": {
+    "pre_transaction": {
+      "accuracy": 0.12508333333333332,
+      "precision": 0.08558204523622391,
+      "recall": 0.9722222222222222,
+      "f1_score": 0.1573159964684164,
+      "specificity": 0.0473981077147016,
+      "false_positive_rate": 0.9526018922852983,
+      "false_negative_rate": 0.027777777777777776,
+      "roc_auc": 0.7128463106646103,
+      "pr_auc": 0.22069680063086622,
+      "true_positives": 980,
+      "false_positives": 10471,
+      "true_negatives": 521,
+      "false_negatives": 28,
+      "confusion_matrix": [
+        [
+          521,
+          10471
+        ],
+        [
+          28,
+          980
+        ]
+      ],
+      "total_transactions": 12000,
+      "total_frauds": 1008,
+      "total_fraud_value_usd": 83702738.64999999,
+      "flagged_fraud_value_usd": 82041261.53999999,
+      "capital_capture_rate": 0.9801502658479622,
+      "threshold": 0.20999999999999996
+    },
+    "post_transaction": {
+      "accuracy": 0.12508333333333332,
+      "precision": 0.08558204523622391,
+      "recall": 0.9722222222222222,
+      "f1_score": 0.1573159964684164,
+      "specificity": 0.0473981077147016,
+      "false_positive_rate": 0.9526018922852983,
+      "false_negative_rate": 0.027777777777777776,
+      "roc_auc": 0.7973060945478386,
+      "pr_auc": 0.2652362323038163,
+      "true_positives": 980,
+      "false_positives": 10471,
+      "true_negatives": 521,
+      "false_negatives": 28,
+      "confusion_matrix": [
+        [
+          521,
+          10471
+        ],
+        [
+          28,
+          980
+        ]
+      ],
+      "total_transactions": 12000,
+      "total_frauds": 1008,
+      "total_fraud_value_usd": 83702738.64999999,
+      "flagged_fraud_value_usd": 82041261.53999999,
+      "capital_capture_rate": 0.9801502658479622,
+      "threshold": 0.07
+    }
+  },
+  "test_c_distribution_shifts": {
+    "Scenario 1: Normal Retail Shift": {
+      "pre_transaction": {
+        "accuracy": 0.1197,
+        "precision": 0.07860445565363598,
+        "recall": 0.9553001277139208,
+        "f1_score": 0.14525682105058743,
+        "specificity": 0.048714332212216556,
+        "false_positive_rate": 0.9512856677877835,
+        "false_negative_rate": 0.04469987228607918,
+        "roc_auc": 0.6727831339474742,
+        "pr_auc": 0.145719207356318,
+        "true_positives": 748,
+        "false_positives": 8768,
+        "true_negatives": 449,
+        "false_negatives": 35,
+        "confusion_matrix": [
+          [
+            449,
+            8768
+          ],
+          [
+            35,
+            748
+          ]
+        ],
+        "total_transactions": 10000,
+        "total_frauds": 783,
+        "total_fraud_value_usd": 12420871.445,
+        "flagged_fraud_value_usd": 11941076.03,
+        "capital_capture_rate": 0.9613718395585568,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.1197,
+        "precision": 0.07860445565363598,
+        "recall": 0.9553001277139208,
+        "f1_score": 0.14525682105058743,
+        "specificity": 0.048714332212216556,
+        "false_positive_rate": 0.9512856677877835,
+        "false_negative_rate": 0.04469987228607918,
+        "roc_auc": 0.7481104450366646,
+        "pr_auc": 0.23364265016753702,
+        "true_positives": 748,
+        "false_positives": 8768,
+        "true_negatives": 449,
+        "false_negatives": 35,
+        "confusion_matrix": [
+          [
+            449,
+            8768
+          ],
+          [
+            35,
+            748
+          ]
+        ],
+        "total_transactions": 10000,
+        "total_frauds": 783,
+        "total_fraud_value_usd": 12420871.445,
+        "flagged_fraud_value_usd": 11941076.03,
+        "capital_capture_rate": 0.9613718395585568,
+        "threshold": 0.07
+      },
+      "sample_count": 10000,
+      "fraud_count": 783
+    },
+    "Scenario 2: High Amount Shift ($500K-$5M)": {
+      "pre_transaction": {
+        "accuracy": 0.1166,
+        "precision": 0.07989960259359967,
+        "recall": 0.955,
+        "f1_score": 0.1474618799459564,
+        "specificity": 0.043695652173913045,
+        "false_positive_rate": 0.956304347826087,
+        "false_negative_rate": 0.045,
+        "roc_auc": 0.6446296195652175,
+        "pr_auc": 0.14811440440919996,
+        "true_positives": 382,
+        "false_positives": 4399,
+        "true_negatives": 201,
+        "false_negatives": 18,
+        "confusion_matrix": [
+          [
+            201,
+            4399
+          ],
+          [
+            18,
+            382
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 400,
+        "total_fraud_value_usd": 511063513.9329315,
+        "flagged_fraud_value_usd": 503833071.86459416,
+        "capital_capture_rate": 0.9858521653938962,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.116,
+        "precision": 0.0798494983277592,
+        "recall": 0.955,
+        "f1_score": 0.14737654320987653,
+        "specificity": 0.043043478260869565,
+        "false_positive_rate": 0.9569565217391305,
+        "false_negative_rate": 0.045,
+        "roc_auc": 0.7870013586956521,
+        "pr_auc": 0.21181653787448798,
+        "true_positives": 382,
+        "false_positives": 4402,
+        "true_negatives": 198,
+        "false_negatives": 18,
+        "confusion_matrix": [
+          [
+            198,
+            4402
+          ],
+          [
+            18,
+            382
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 400,
+        "total_fraud_value_usd": 511063513.9329315,
+        "flagged_fraud_value_usd": 503833071.86459416,
+        "capital_capture_rate": 0.9858521653938962,
+        "threshold": 0.07
+      },
+      "sample_count": 5000,
+      "fraud_count": 400
+    },
+    "Scenario 3: Off-Hours Nighttime Velocity": {
+      "pre_transaction": {
+        "accuracy": 0.428,
+        "precision": 0.09957279000985869,
+        "recall": 0.7163120567375887,
+        "f1_score": 0.17484131563762262,
+        "specificity": 0.40135459908236837,
+        "false_positive_rate": 0.5986454009176316,
+        "false_negative_rate": 0.28368794326241137,
+        "roc_auc": 0.677377275936678,
+        "pr_auc": 0.2542070176930475,
+        "true_positives": 303,
+        "false_positives": 2740,
+        "true_negatives": 1837,
+        "false_negatives": 120,
+        "confusion_matrix": [
+          [
+            1837,
+            2740
+          ],
+          [
+            120,
+            303
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 423,
+        "total_fraud_value_usd": 28151798.31,
+        "flagged_fraud_value_usd": 17849133.46,
+        "capital_capture_rate": 0.6340317326605628,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.4282,
+        "precision": 0.09986859395532194,
+        "recall": 0.7186761229314421,
+        "f1_score": 0.1753677531006634,
+        "specificity": 0.40135459908236837,
+        "false_positive_rate": 0.5986454009176316,
+        "false_negative_rate": 0.28132387706855794,
+        "roc_auc": 0.727657715032145,
+        "pr_auc": 0.26007800057154923,
+        "true_positives": 304,
+        "false_positives": 2740,
+        "true_negatives": 1837,
+        "false_negatives": 119,
+        "confusion_matrix": [
+          [
+            1837,
+            2740
+          ],
+          [
+            119,
+            304
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 423,
+        "total_fraud_value_usd": 28151798.31,
+        "flagged_fraud_value_usd": 18849133.46,
+        "capital_capture_rate": 0.6695534421083312,
+        "threshold": 0.07
+      },
+      "sample_count": 5000,
+      "fraud_count": 423
+    },
+    "Scenario 4: Ultra-Low Fraud Prevalence (0.2%)": {
+      "pre_transaction": {
+        "accuracy": 0.04477692849785873,
+        "precision": 0.002264877413509994,
+        "recall": 1.0,
+        "f1_score": 0.004519518671261511,
+        "specificity": 0.04270114630303689,
+        "false_positive_rate": 0.9572988536969631,
+        "false_negative_rate": 0.0,
+        "roc_auc": 0.645257239093823,
+        "pr_auc": 0.00840000741381055,
+        "true_positives": 40,
+        "false_positives": 17621,
+        "true_negatives": 786,
+        "false_negatives": 0,
+        "confusion_matrix": [
+          [
+            786,
+            17621
+          ],
+          [
+            0,
+            40
+          ]
+        ],
+        "total_transactions": 18447,
+        "total_frauds": 40,
+        "total_fraud_value_usd": 3004438.83,
+        "flagged_fraud_value_usd": 3004438.83,
+        "capital_capture_rate": 1.0,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.04477692849785873,
+        "precision": 0.002264877413509994,
+        "recall": 1.0,
+        "f1_score": 0.004519518671261511,
+        "specificity": 0.04270114630303689,
+        "false_positive_rate": 0.9572988536969631,
+        "false_negative_rate": 0.0,
+        "roc_auc": 0.8167735100776877,
+        "pr_auc": 0.011236535807092597,
+        "true_positives": 40,
+        "false_positives": 17621,
+        "true_negatives": 786,
+        "false_negatives": 0,
+        "confusion_matrix": [
+          [
+            786,
+            17621
+          ],
+          [
+            0,
+            40
+          ]
+        ],
+        "total_transactions": 18447,
+        "total_frauds": 40,
+        "total_fraud_value_usd": 3004438.83,
+        "flagged_fraud_value_usd": 3004438.83,
+        "capital_capture_rate": 1.0,
+        "threshold": 0.07
+      },
+      "sample_count": 18447,
+      "fraud_count": 40
+    },
+    "Scenario 5: Overlapping Ambiguous Profiles": {
+      "pre_transaction": {
+        "accuracy": 0.108,
+        "precision": 0.08450341362875177,
+        "recall": 0.9576642335766423,
+        "f1_score": 0.1553030303030303,
+        "specificity": 0.028434723171565278,
+        "false_positive_rate": 0.9715652768284347,
+        "false_negative_rate": 0.042335766423357665,
+        "roc_auc": 0.5566529129725443,
+        "pr_auc": 0.09443621715918564,
+        "true_positives": 656,
+        "false_positives": 7107,
+        "true_negatives": 208,
+        "false_negatives": 29,
+        "confusion_matrix": [
+          [
+            208,
+            7107
+          ],
+          [
+            29,
+            656
+          ]
+        ],
+        "total_transactions": 8000,
+        "total_frauds": 685,
+        "total_fraud_value_usd": 40747599.129999995,
+        "flagged_fraud_value_usd": 39530164.08,
+        "capital_capture_rate": 0.9701225329591585,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.108,
+        "precision": 0.08450341362875177,
+        "recall": 0.9576642335766423,
+        "f1_score": 0.1553030303030303,
+        "specificity": 0.028434723171565278,
+        "false_positive_rate": 0.9715652768284347,
+        "false_negative_rate": 0.042335766423357665,
+        "roc_auc": 0.4489172832545864,
+        "pr_auc": 0.07424784287189995,
+        "true_positives": 656,
+        "false_positives": 7107,
+        "true_negatives": 208,
+        "false_negatives": 29,
+        "confusion_matrix": [
+          [
+            208,
+            7107
+          ],
+          [
+            29,
+            656
+          ]
+        ],
+        "total_transactions": 8000,
+        "total_frauds": 685,
+        "total_fraud_value_usd": 40747599.129999995,
+        "flagged_fraud_value_usd": 39530164.08,
+        "capital_capture_rate": 0.9701225329591585,
+        "threshold": 0.07
+      },
+      "sample_count": 8000,
+      "fraud_count": 685
+    },
+    "Scenario 6: Novel Payment/Debit Channel Fraud": {
+      "pre_transaction": {
+        "accuracy": 0.1144,
+        "precision": 0.08083333333333333,
+        "recall": 0.9603960396039604,
+        "f1_score": 0.1491160645657187,
+        "specificity": 0.04003481288076589,
+        "false_positive_rate": 0.9599651871192341,
+        "false_negative_rate": 0.039603960396039604,
+        "roc_auc": 0.4391445100776396,
+        "pr_auc": 0.06961620248491683,
+        "true_positives": 388,
+        "false_positives": 4412,
+        "true_negatives": 184,
+        "false_negatives": 16,
+        "confusion_matrix": [
+          [
+            184,
+            4412
+          ],
+          [
+            16,
+            388
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 404,
+        "total_fraud_value_usd": 35351411.230000004,
+        "flagged_fraud_value_usd": 34761445.970000006,
+        "capital_capture_rate": 0.9833114085273252,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.1144,
+        "precision": 0.08083333333333333,
+        "recall": 0.9603960396039604,
+        "f1_score": 0.1491160645657187,
+        "specificity": 0.04003481288076589,
+        "false_positive_rate": 0.9599651871192341,
+        "false_negative_rate": 0.039603960396039604,
+        "roc_auc": 0.7015662564951013,
+        "pr_auc": 0.2215224392726689,
+        "true_positives": 388,
+        "false_positives": 4412,
+        "true_negatives": 184,
+        "false_negatives": 16,
+        "confusion_matrix": [
+          [
+            184,
+            4412
+          ],
+          [
+            16,
+            388
+          ]
+        ],
+        "total_transactions": 5000,
+        "total_frauds": 404,
+        "total_fraud_value_usd": 35351411.230000004,
+        "flagged_fraud_value_usd": 34761445.970000006,
+        "capital_capture_rate": 0.9833114085273252,
+        "threshold": 0.07
+      },
+      "sample_count": 5000,
+      "fraud_count": 404
+    }
+  },
+  "test_d_noise_robustness": {
+    "5%": {
+      "level": 0.05,
+      "pre_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.6434506480903862,
+        "pr_auc": 0.14787035677235763,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83508136.77678375,
+        "flagged_fraud_value_usd": 81361818.41235012,
+        "capital_capture_rate": 0.9742980930089398,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.7572721087919644,
+        "pr_auc": 0.24323561628611184,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83508136.77678375,
+        "flagged_fraud_value_usd": 81361818.41235012,
+        "capital_capture_rate": 0.9742980930089398,
+        "threshold": 0.07
+      }
+    },
+    "10%": {
+      "level": 0.1,
+      "pre_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.6422979338508816,
+        "pr_auc": 0.14110626401151377,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83818929.71596745,
+        "flagged_fraud_value_usd": 81810090.37368806,
+        "capital_capture_rate": 0.9760335839518993,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.7516468506677296,
+        "pr_auc": 0.23577230217343548,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83818929.71596745,
+        "flagged_fraud_value_usd": 81810090.37368806,
+        "capital_capture_rate": 0.9760335839518993,
+        "threshold": 0.07
+      }
+    },
+    "15%": {
+      "level": 0.15,
+      "pre_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.6428555634256372,
+        "pr_auc": 0.14122910947568246,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 84149742.67056653,
+        "flagged_fraud_value_usd": 82033444.42907017,
+        "capital_capture_rate": 0.9748508055481365,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.7464942487032415,
+        "pr_auc": 0.2279178783669871,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 84149742.67056653,
+        "flagged_fraud_value_usd": 82033444.42907017,
+        "capital_capture_rate": 0.9748508055481365,
+        "threshold": 0.07
+      }
+    },
+    "20%": {
+      "level": 0.2,
+      "pre_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.6418320918099164,
+        "pr_auc": 0.14388760163598535,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 81145008.69215384,
+        "flagged_fraud_value_usd": 79278525.18159613,
+        "capital_capture_rate": 0.9769981722765139,
+        "threshold": 0.20999999999999996
+      },
+      "post_transaction": {
+        "accuracy": 0.12566666666666668,
+        "precision": 0.08490896358543418,
+        "recall": 0.9623015873015873,
+        "f1_score": 0.15604890604890606,
+        "specificity": 0.048944687045123725,
+        "false_positive_rate": 0.9510553129548762,
+        "false_negative_rate": 0.037698412698412696,
+        "roc_auc": 0.7380229001322752,
+        "pr_auc": 0.21698962841392494,
+        "true_positives": 970,
+        "false_positives": 10454,
+        "true_negatives": 538,
+        "false_negatives": 38,
+        "confusion_matrix": [
+          [
+            538,
+            10454
+          ],
+          [
+            38,
+            970
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 81145008.69215384,
+        "flagged_fraud_value_usd": 79278525.18159613,
+        "capital_capture_rate": 0.9769981722765139,
+        "threshold": 0.07
+      }
+    }
+  },
+  "threshold_sensitivity": {
+    "0.30": {
+      "threshold": 0.3,
+      "pre_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7128463106646103,
+        "pr_auc": 0.22069680063086622,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.3
+      },
+      "post_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7973060945478386,
+        "pr_auc": 0.2652362323038163,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.3
+      }
+    },
+    "0.40": {
+      "threshold": 0.4,
+      "pre_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7128463106646103,
+        "pr_auc": 0.22069680063086622,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.4
+      },
+      "post_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7973060945478386,
+        "pr_auc": 0.2652362323038163,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.4
+      }
+    },
+    "0.50": {
+      "threshold": 0.5,
+      "pre_transaction": {
+        "accuracy": 0.12866666666666668,
+        "precision": 0.08575938267274641,
+        "recall": 0.9702380952380952,
+        "f1_score": 0.15758942958427327,
+        "specificity": 0.0514919941775837,
+        "false_positive_rate": 0.9485080058224163,
+        "false_negative_rate": 0.02976190476190476,
+        "roc_auc": 0.7128463106646103,
+        "pr_auc": 0.22069680063086622,
+        "true_positives": 978,
+        "false_positives": 10426,
+        "true_negatives": 566,
+        "false_negatives": 30,
+        "confusion_matrix": [
+          [
+            566,
+            10426
+          ],
+          [
+            30,
+            978
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82040319.58,
+        "capital_capture_rate": 0.9801390122137899,
+        "threshold": 0.5
+      },
+      "post_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7973060945478386,
+        "pr_auc": 0.2652362323038163,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.5
+      }
+    },
+    "0.60": {
+      "threshold": 0.6,
+      "pre_transaction": {
+        "accuracy": 0.13158333333333333,
+        "precision": 0.08573188979843324,
+        "recall": 0.9662698412698413,
+        "f1_score": 0.15749050044466004,
+        "specificity": 0.055040029112081515,
+        "false_positive_rate": 0.9449599708879185,
+        "false_negative_rate": 0.03373015873015873,
+        "roc_auc": 0.7128463106646103,
+        "pr_auc": 0.22069680063086622,
+        "true_positives": 974,
+        "false_positives": 10387,
+        "true_negatives": 605,
+        "false_negatives": 34,
+        "confusion_matrix": [
+          [
+            605,
+            10387
+          ],
+          [
+            34,
+            974
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82001111.0,
+        "capital_capture_rate": 0.9796705857246166,
+        "threshold": 0.6
+      },
+      "post_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7973060945478386,
+        "pr_auc": 0.2652362323038163,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.6
+      }
+    },
+    "0.70": {
+      "threshold": 0.7,
+      "pre_transaction": {
+        "accuracy": 0.316,
+        "precision": 0.10026648900732844,
+        "recall": 0.8958333333333334,
+        "f1_score": 0.18034751348112643,
+        "specificity": 0.26282751091703055,
+        "false_positive_rate": 0.7371724890829694,
+        "false_negative_rate": 0.10416666666666667,
+        "roc_auc": 0.7128463106646103,
+        "pr_auc": 0.22069680063086622,
+        "true_positives": 903,
+        "false_positives": 8103,
+        "true_negatives": 2889,
+        "false_negatives": 105,
+        "confusion_matrix": [
+          [
+            2889,
+            8103
+          ],
+          [
+            105,
+            903
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 74411309.02,
+        "capital_capture_rate": 0.8889949148635174,
+        "threshold": 0.7
+      },
+      "post_transaction": {
+        "accuracy": 0.12508333333333332,
+        "precision": 0.08558204523622391,
+        "recall": 0.9722222222222222,
+        "f1_score": 0.1573159964684164,
+        "specificity": 0.0473981077147016,
+        "false_positive_rate": 0.9526018922852983,
+        "false_negative_rate": 0.027777777777777776,
+        "roc_auc": 0.7973060945478386,
+        "pr_auc": 0.2652362323038163,
+        "true_positives": 980,
+        "false_positives": 10471,
+        "true_negatives": 521,
+        "false_negatives": 28,
+        "confusion_matrix": [
+          [
+            521,
+            10471
+          ],
+          [
+            28,
+            980
+          ]
+        ],
+        "total_transactions": 12000,
+        "total_frauds": 1008,
+        "total_fraud_value_usd": 83702738.64999999,
+        "flagged_fraud_value_usd": 82041261.53999999,
+        "capital_capture_rate": 0.9801502658479622,
+        "threshold": 0.7
+      }
+    }
+  },
+  "permutation_importance": [
+    {
+      "Feature": "merchant_destination",
+      "Importance_Mean": 0.05343624309199988,
+      "Importance_Std": 0.01186634817056638
+    },
+    {
+      "Feature": "empty_account_flag",
+      "Importance_Mean": 0.048323247604274935,
+      "Importance_Std": 0.007439319848652349
+    },
+    {
+      "Feature": "type_PAYMENT",
+      "Importance_Mean": 0.04148242554104772,
+      "Importance_Std": 0.012618583839022344
+    },
+    {
+      "Feature": "type_CASH_OUT",
+      "Importance_Mean": 0.011052686869830824,
+      "Importance_Std": 0.0012588253381526074
+    },
+    {
+      "Feature": "transaction_amount_log",
+      "Importance_Mean": 0.008600076488843955,
+      "Importance_Std": 0.0018203164361825302
+    },
+    {
+      "Feature": "amount",
+      "Importance_Mean": 0.008357971069402248,
+      "Importance_Std": 0.0019820954737850083
+    },
+    {
+      "Feature": "step",
+      "Importance_Mean": 0.0036675606490159775,
+      "Importance_Std": 0.004797666031281682
+    },
+    {
+      "Feature": "transaction_hour",
+      "Importance_Mean": 0.0027851259611423483,
+      "Importance_Std": 0.008147306845668247
+    },
+    {
+      "Feature": "dest_has_zero_balance",
+      "Importance_Mean": 0.001767086141605334,
+      "Importance_Std": 0.0013531754717016017
+    },
+    {
+      "Feature": "type_DEBIT",
+      "Importance_Mean": 0.0,
+      "Importance_Std": 0.0
+    },
+    {
+      "Feature": "orig_has_zero_balance",
+      "Importance_Mean": 0.0,
+      "Importance_Std": 0.0
+    },
+    {
+      "Feature": "oldbalanceOrg",
+      "Importance_Mean": -0.0007042208923329352,
+      "Importance_Std": 0.001634955817867578
+    },
+    {
+      "Feature": "transaction_day",
+      "Importance_Mean": -0.002127562545619077,
+      "Importance_Std": 0.001521845062585733
+    },
+    {
+      "Feature": "oldbalanceDest",
+      "Importance_Mean": -0.0029972270076035422,
+      "Importance_Std": 0.004611763978887644
+    },
+    {
+      "Feature": "type_TRANSFER",
+      "Importance_Mean": -0.011768309510656005,
+      "Importance_Std": 0.003203168608218634
+    },
+    {
+      "Feature": "amount_to_oldbalance_orig_ratio",
+      "Importance_Mean": -0.043725668574124806,
+      "Importance_Std": 0.010859910977636571
+    }
+  ]
+}
